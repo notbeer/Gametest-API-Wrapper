@@ -8,3 +8,6 @@ export * as help from './information/help.js';
 export * as givetag from './information/giveTag.js';
 export * as location from './information/location.js';
 export * as eval from './information/eval.js';
+
+//!Category Misc
+export * as home from './misc/home.js';
