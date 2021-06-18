@@ -153,5 +153,5 @@ Project Link: [https://github.com/notbeer/MCBE-GameTest-FrameWork](https://githu
 [issues-shield]: https://img.shields.io/github/issues/notbeer/MCBE-GameTest-FrameWork.svg?style=for-the-badge
 [issues-url]: https://github.com/notbeer/MCBE-GameTest-FrameWork/issues
 [license-shield]: https://img.shields.io/github/license/notbeer/MCBE-GameTest-FrameWork.svg?style=for-the-badge
-[license-url]: https://github.com/notbeer/MCBE-GameTest-FrameWork/LICENSE.txt
+[license-url]: https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/LICENSE.txt
 [framework-img]: https://scrumorg-website-prod.s3.amazonaws.com/drupal/inline-images/2018-09/Understanding%20and%20Applying%20Scrum.png
