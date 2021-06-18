@@ -96,7 +96,7 @@ Recommended Method
 Please make sure you are in the beta version of Minecraft Bedrock Edition 1.17.10.23+
 Well, at least till' the the features gets added to the stable version.
 Create a new world, since GameTest FrameWork is still experimental. Make sure in your settings you have `GameTest FrameWork` enabled under `Experiments` category.
-At last type in the game chat `+help` for the list of commands! You can edit/add commands to the pack in the folder.
+At last type in the game chat `+help` for the list of commands or `+help [command name]` to get information on a specific command! You can edit/add commands to the pack in the folder.
 
 _[Documentation on GameTest FrameWork](https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/minecraft)_
 
