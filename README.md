@@ -43,7 +43,6 @@ https://github.com/othneildrew/Best-README-Template
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -97,7 +96,7 @@ Recommended Method
 Please make sure you are in the beta version of Minecraft Bedrock Edition 1.17.10.23+
 Well, at least till' the the features gets added to the stable version.
 Create a new world, since GameTest FrameWork is still experimental. Make sure in your settings you have `GameTest FrameWork` enabled under `Experiments` category.
-At last type in the game chat `+help` for the list of commands! You can edit/add commands to the pack in the folder.
+At last type in the game chat `+help` for the list of commands or `+help [command name]` to get information on a specific command! You can edit/add commands to the pack in the folder.
 
 _[Documentation on GameTest FrameWork](https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/minecraft)_
 
@@ -114,7 +113,6 @@ See the [open issues](https://github.com/github_username/repo_name/issues) for a
 ## Contributing
 
 You can share your amazing talent with other people! Any Contributions are **greatly appreciated**. 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
