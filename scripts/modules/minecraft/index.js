@@ -27,7 +27,7 @@ Minecraft.World.events.beforeChat.subscribe(chatmsg => { //Event to listen for m
 //I seperated these stuff to make stuff more organized
 Minecraft.World.events.beforeChat.subscribe(chatmsg => { //Another chat listening event
     if(chatmsg.message.startsWith(config.commandPrefix)) return; //If they are trying to execute a custom command don't execute the stuff below
-    rainbowText(chatmsg); //This is the rainbow function it will only execute if the user has the tag 'rainbowText'. You can give yourself the tag by typing in chat "/tag @s add rainbowText"
+    if(findTagOnPlayer(chatmsg, 'rainbowText')) chatmsg.message = rainbowText(chatmsg.message); //This is the rainbow function it will only execute if the user has the tag 'rainbowText'. You can give yourself the tag by typing in chat "/tag @s add rainbowText"
 });
 
 export { config }; //Export the config variable so other files have access to the prefix and other property from the variable
