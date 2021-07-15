@@ -1,6 +1,7 @@
 import * as Minecraft from 'Minecraft'; //Import Module Minecraft from the game
 import * as allCommands from './commands/export.js'; //Import all the commands 
 import { rainbowText } from './utils/misc/rainbowText.js'; //Import the function for giving text rainbow effect
+import { findTagOnPlayer } from './utils/others/cache.js'; //Import the function that tests if a player has a certain tag
 
 var config = {
     commandPrefix: "+" //Prefix used to execute the custom commands
