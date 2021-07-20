@@ -6,7 +6,7 @@ export * as ping from './test/ping.js';
 //!Category information
 export * as help from './information/help.js';
 export * as location from './information/location.js';
-export * as eval from './information/eval.js';
+export * as eval from './private/eval.js';
 
 //!Category Misc
 export * as home from './misc/home.js';
