@@ -1,4 +1,4 @@
-var commandInfo = { //This variable holds the command information for help command to display. Such as rhe description and usage
+var commandInfo = { //This variable holds the command information for help command to display. Such as the description and usage
     description: 'Pong! This is a test-',
     usage: ['ping']
 };
