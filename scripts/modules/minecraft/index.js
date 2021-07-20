@@ -42,7 +42,7 @@ Minecraft.World.events.tick.subscribe(() => { //Run stuff inside every world tic
     tickExeOnce++;
 });
 
-//An example on how you can create a leaderboard. Check out the function parameter comments for §a\'writeLeaderboard\' §din the file §autils/misc.js §dfor more information on how to get it setup.
+//An example on how you can create a leaderboard. Check out the function parameter comments for 'writeLeaderboard' §din the file utils/misc.js for more information on how to get it setup.
 /*
 function startupFunctions() {
     misc.writeLeaderboard(
