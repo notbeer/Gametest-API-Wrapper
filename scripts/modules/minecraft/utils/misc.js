@@ -76,7 +76,7 @@ function writeLeaderboard({ floatingTextIdentifier, leaderboardEntity, objective
     leaderboard.sort((a, b) => b.score - a.score);
     let leaderboardString = `${leaderboardHeading}\n§r`, saveData = '';
     for(let i = 0; i < displayLength && i < leaderboard.length; i++) {
-        leaderboardString += `${leaderboardLayout.replace(/\$\(RANK\)/g, i + 1).replace(/\$\(GAMERTAG\)/g, leaderboard[i].gamertag).replace(/\$\(SCORE\)/g, compressScore ? compressNum(leaderboard[i].score) : formatScore ? leaderboard[i].score.replace(/\B(?=(\d{3})+(?!\d))/g, ",") : leaderboard[i].score)}§r\n`;
+        leaderboardString += `${leaderboardLayout.replace(/\$\(RANK\)/g, i + 1).replace(/\$\(GAMERTAG\)/g, leaderboard[i].gamertag).replace(/\$\(SCORE\)/g, compressScore ? compressNum(leaderboard[i].score) : formatScore ? leaderboard[i].score.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : leaderboard[i].score)}§r\n`;
         saveData += `$(${objective}-objective{gamertag: ${leaderboard[i].gamertag}, score: ${leaderboard[i].score}}) `;
     };
     saveData = saveData ? `§${saveData.replace(/\s*$/, '').split('').join('§')}` : '';
