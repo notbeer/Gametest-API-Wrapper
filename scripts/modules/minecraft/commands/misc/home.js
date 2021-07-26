@@ -1,22 +1,20 @@
-import { runCommand } from "../../utils/others.js";
+import Command from "../../lib/commandHandler.js";
+import { runCommand } from "../../lib/utils/others.js";
 
-var commandInfo = {
+const registerInformation = {
     cancelMessage: true,
-    description: 'Use this command to set home and later teleport to that position-',
-    usage: [
+    name: 'home',
+    description: 'Use this command to list/set/remove/warp to home',
+    usage: '<list | set | remove | warp> [home name]',
+    example: [
         'home list',
         'home set <home name>',
         'home remove <home name>',
         'home warp <home name>'
     ]
 };
-/**
- * Explanation of the parameters that are being passed in the 'execute' function
- * @param {Object} chatmsg - This is the object that is passed by the event listening for messages being sent in chat
- * @param {Array} args - This collectes all the message that comes after the prefix and the command name in a array, which is split by an 'space'
- * @param {Module} Minecraft - This is the module Minecraft, which holds all the important classes. More information at: https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/minecraft
- */
-function execute(chatmsg, args, Minecraft) {
+
+Command.register(registerInformation, (chatmsg, args) => {
     const data = runCommand(`tag "${chatmsg.sender.name}" list`).result;
     const coordFormat = /(?<=[x-zX-Z]: )(-\d+|\d+)/g;
     const homeName = args.slice(1).join(' ').toLowerCase();
@@ -46,12 +44,10 @@ function execute(chatmsg, args, Minecraft) {
             return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§bSuccessfully removed home with the name §a${homeName} §bat §a${findXYZ[0]}§r, §a${findXYZ[1]}§r, §a${findXYZ[2]}"}]}`);
         };
     } else if(warpOptions.includes(args[0])) {
-        if(!args[1]) return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§cPlease type a home name to remove!"}]}`);
+        if(!args[1]) return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§cPlease type a home name to warp to!"}]}`);
         if(!data.statusMessage.match(homeRegex)) return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§cYou don't have a home with that name!"}]}`);
 
         runCommand(`execute "${chatmsg.sender.name}" ~~~ tp @s ${findXYZ[0]} ${findXYZ[1]} ${findXYZ[2]}`);
         return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§bYou have been teleported to §a${findXYZ[0]}§r, §a${findXYZ[1]}§r, §a${findXYZ[2]}"}]}`);
     } else return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§cThat's not a valid argument!"}]}`);
-};
-
-export { commandInfo, execute };
+});

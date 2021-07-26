@@ -1,24 +1,20 @@
-import { runCommand } from "../../utils/others.js";
+import Command from "../../lib/commandHandler.js";
+import { runCommand } from "../../lib/utils/others.js";
 
-var commandInfo = {
-    ownerOnly: true,
+const registerInformation = {
+    private: true,
     cancelMessage: true,
-    description: 'To use this command give yourself tag "OWNER"',
-    usage: [
-        'eval <command>'
-    ]
+    ownerOnly: true,
+    name: 'eval',
+    aliases: ['execute'],
+    description: 'Execute a command in game and get the data!',
+    usage: 'eval <command>',
+    example: ['eval say hi']
 };
-/**
- * Explanation of the parameters that are being passed in the 'execute' function
- * @param {Object} chatmsg - This is the object that is passed by the event listening for messages being sent in chat
- * @param {Array} args - This collectes all the message that comes after the prefix and the command name in a array, which is split by an 'space'
- * @param {Module} Minecraft - This is the module Minecraft, which holds all the important classes. More information at: https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/minecraft
- */
-function execute(chatmsg, args, Minecraft) {
+
+Command.register(registerInformation, (chatmsg, args) => {
     const command = args.join(' ');
     if(!command) return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§cPlease type a command to execute!"}]}`);
     const data = runCommand(`say : §a${JSON.stringify(runCommand(command))}`);
     if(data.error) return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§c${JSON.stringify(runCommand(command))}"}]}`);
-};
-
-export { commandInfo, execute };
+});
