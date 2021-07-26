@@ -2,22 +2,20 @@
 This README.md template was not orginally created by me(notbeer)! This is a fork of:
 https://github.com/othneildrew/Best-README-Template
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 
 
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <h3 align="center">GameTest FrameWork</h3>
+<a href="https://github.com/notbeer/MCBE-GameTest-FrameWork">
+    <img src="https://camo.githubusercontent.com/2cfb14ae080080e092ff1e37841ba04f7ee1ae6ac19be3503f995bf2e90c9479/68747470733a2f2f736372756d6f72672d776562736974652d70726f642e73332e616d617a6f6e6177732e636f6d2f64727570616c2f696e6c696e652d696d616765732f323031382d30392f556e6465727374616e64696e67253230616e642532304170706c79696e67253230536372756d2e706e67" alt="Logo" width="80" height="80">
+  </a>
+  <h3 align="center"><u>GameTest FrameWork</u></h3>
 
   <p align="center">
     GameTest FrameWork is a new feature in Minecraft Bedrock Edition. This gives you the ability to script! In this example I will be using the Module 'Minecraft'. This module gives you a lot of abilities. Such as giving you the ability to make custom commands, and many more!
     <br />
-    <a href="https://github.com/notbeer/MCBE-GameTest-FrameWork"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/DOCS.md"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://github.com/notbeer/MCBE-GameTest-FrameWork">View Demo</a>
@@ -28,7 +26,11 @@ https://github.com/othneildrew/Best-README-Template
   </p>
 </p>
 
-
+  [![Contributors][contributors-shield]][contributors-url]
+  [![Forks][forks-shield]][forks-url]
+  [![Stargazers][stars-shield]][stars-url]
+  [![Issues][issues-shield]][issues-url]
+  [![MIT License][license-shield]][license-url]
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -45,6 +47,9 @@ https://github.com/othneildrew/Best-README-Template
       <ul>
         <li><a href="#installation">Installation</a></li>
       </ul>
+      <ul>
+        <li><a href="https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/DOCS.md">Documentations</a></li>
+      </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -60,12 +65,14 @@ https://github.com/othneildrew/Best-README-Template
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![GameTest FrameWork][framework-img]
-
 There aren't many examples out there on this new feature 'GameTest'. I have made this to help you out and give you a solid example on what this new feature can be used for! This project includes a command handler in ES6, which is really easy to understand if you have the basic JS knowledge. I have left comments through out the project for you to understand what's going on better!
 
 * This is basically a starter kit. You won't have to build your's from scratch, if you were planning to make custom commands.
+
 * I have built you a custom command handler! So, you won't need to repeat your code over and over again.
+
+* Built in event listeners. Making it easier for you to listen for events!
+
 * The files/commands are very organized. This will make your navigations way easier.
 
 
@@ -93,8 +100,11 @@ Recommended Method
 
 ## Usage
 
-Please make sure you are in the beta version of Minecraft Bedrock Edition 1.17.10.23+
-Well, at least till' the the features gets added to the stable version.
+Most of the features should work as of now version 1.17.10. A lot of the class, methods, properties and more may change a lot. Since GameTest FrameWork is in heavy development as of now. 
+
+<strong>WARNING: </strong>`If you are going to apply any GameTest related scripts to your world, please make a copy of your world before you do so! I'm not responsible if anything goes wrong-`
+
+
 Create a new world, since GameTest FrameWork is still experimental. Make sure in your settings you have `GameTest FrameWork` enabled under `Experiments` category.
 At last type in the game chat `+help` for the list of commands or `+help [command name]` to get information on a specific command! You can edit/add commands to the pack in the folder.
 
@@ -105,7 +115,7 @@ _[Documentation on GameTest FrameWork](https://docs.microsoft.com/en-us/minecraf
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/notbeer/MCBE-GameTest-FrameWork/issues) for a list of proposed features (and known issues).
 
 
 
@@ -134,12 +144,13 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Discord - [notbeer#9204](https://discordapp.com/users/606353040336748584/)
 
-Project Link: [https://github.com/notbeer/MCBE-GameTest-FrameWork](https://github.com/notbeer/MCBE-GameTest-FrameWork)
+Project Link: [https://github.com/notbeer/MCBE-GameTest-FrameWork](https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/DOCS.md)
 
 
 ## Acknowledgements
 
 * [GameTest FrameWork Documentation](https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/minecraft)
+* [Pack Documentation](https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/minecraft)
 
 
 [contributors-shield]: https://img.shields.io/github/contributors/notbeer/MCBE-GameTest-FrameWork.svg?style=for-the-badge
@@ -152,4 +163,3 @@ Project Link: [https://github.com/notbeer/MCBE-GameTest-FrameWork](https://githu
 [issues-url]: https://github.com/notbeer/MCBE-GameTest-FrameWork/issues
 [license-shield]: https://img.shields.io/github/license/notbeer/MCBE-GameTest-FrameWork.svg?style=for-the-badge
 [license-url]: https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/LICENSE.txt
-[framework-img]: https://scrumorg-website-prod.s3.amazonaws.com/drupal/inline-images/2018-09/Understanding%20and%20Applying%20Scrum.png
