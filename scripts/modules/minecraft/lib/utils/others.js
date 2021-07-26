@@ -29,6 +29,10 @@ function runCommands(commands) {
 function findEntityAtPos([x, y, z], { dimension } = {}) {
     try {
         const entity = Minecraft.World.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation(new Minecraft.BlockLocation(parseInt(x), parseInt(y), parseInt(z)));
+        const players = Minecraft.World.getPlayers();
+        for(let i = 0; i < entity.length; i++)
+            for(let j = 0; j < players.length; j++)
+                if(entity[i].nameTag == players[j].nameTag) entity.splice(i, 1);
         return { list: entity, error: false };
     } catch (err) {
         return { list: null, error: true };
