@@ -61,8 +61,8 @@ function writeLeaderboard([x, y, z], objective, { displayLength, leaderboardHead
     leaderboard = [...new Map(leaderboard.map(item => [item['gamertag'], item])).values()];
 
     Minecraft.World.getPlayers().forEach(player => {
-        const dataScore = getScore({ objective }, { entityRequirements: `[type=player,name="${player.name}"]`});
-        if(data) onlineLeaderboard.push({ gamertag: player.name, score: dataScore });
+        const data = getScore({ objective }, { entityRequirements: `[type=player,name="${player.name}"]`});
+        if(data) onlineLeaderboard.push({ gamertag: player.name, score: data[0] });
     });
 
     for(let i = 0; i < onlineLeaderboard.length; i++) {

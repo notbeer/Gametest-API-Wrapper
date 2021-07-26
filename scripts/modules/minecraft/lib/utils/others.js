@@ -61,7 +61,7 @@ function findTag({ entityRequirements } = {}, { searchTag }) {
 function getScore({ objective }, { entityRequirements, minimum, maximum } = {}) {
     const data = runCommand(`scoreboard players test @e${entityRequirements ? `[${entityRequirements.replace(/\]|\[/g, '')}]` : ''} ${objective} ${minimum ? minimum : '*'} ${maximum ? maximum : '*'}`);
     if(data.error) return;
-    return data.result.statusMessage.match(/(?<=Score ).+?(?= is in range (-\d+|\d+) to (-\d+|\d+))/g)[0];
+    return data.result.statusMessage.match(/(?<=Score ).+?(?= is in range (-\d+|\d+) to (-\d+|\d+))/g);
 };
 /**
  * @function setTickTimeout() - Delay executing a function, ONCE
