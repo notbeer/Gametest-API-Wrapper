@@ -27,5 +27,5 @@ setTickInterval(() => {
             compressScore: true
         }
     );
-});
+}, 100); //Stuff inside will execute every 5 seconds
 */
