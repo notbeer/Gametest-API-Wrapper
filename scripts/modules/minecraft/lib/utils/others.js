@@ -47,7 +47,7 @@ function findTag({ entityRequirements } = {}, { searchTag }) {
         const tagRegex = new RegExp(`:(.+)\\b${searchTag}\\b`, 'g');
         if(parsedData.match(tagRegex)) return true;
     } catch(err) {
-        runCommand(`say An error has occured, while trying to parse the player tag data...\n§c${err}`)
+        runCommand(`say : An error has occured, while trying to parse the player tag data. Please reload your world if this error keeps occuring...\n§c${err}`)
     };
 };
 /**
