@@ -1,16 +1,16 @@
-var commandInfo = { //This variable holds the command information for help command to display. Such as the description and usage
-    cancelMessage: Boolean,
-    description: String,
-    usage: Array
-};
-/**
- * Explanation of the parameters that are being passed in the 'execute' function
- * @param {Object} chatmsg - This is the object that is passed by the event listening for messages being sent in chat
- * @param {Array} args - This collectes all the message that comes after the prefix and the command name in a array, which is split by an 'space'
- * @param {Module} Minecraft - This is the module Minecraft, which holds all the important classes. More information at: https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/minecraft
- */
-function execute(chatmsg, args, Minecraft) {
-    //Code here
+import Command from "./../lib/commandHandler.js"; //You must import this in every custom command file to register your command in game. Make sure your path is correct. It may change depending on the file-
+
+const registerInformation = { //You must fill in these informations to register the command
+    private: Boolean, //Optional - If true the command won't be displayed upon "help" command execution
+    cancelMessage: Boolean, //Optional - If true players text won't be sent in chat when they execute the command
+    ownerOnly: Boolean, //Optional - If set to true player requires the "OWNER" tag to execute the command
+    name: String, //Required - The command name
+    aliases: Array, //Optional - More command names. This basically gives you the ability to execute the same command under multiple names
+    description: String, //Optional - Description on what the command does
+    usage: String, //Optional - Type in the parameter options of the commands if there are any
+    example: Array //Optional - Few examples on how to use the command
 };
 
-export { commandInfo, execute };
+Command.register(registerInformation, (chatmsg, args) => {
+    //Your code
+});
