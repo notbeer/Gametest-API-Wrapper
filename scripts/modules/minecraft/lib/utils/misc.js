@@ -1,6 +1,5 @@
-import * as Minecraft from 'Minecraft';
 import { compressNum } from './formatter.js';
-import { runCommand, findEntityAtPos, getScore } from './others.js';
+import { runCommand, findEntityAtPos, getScore, getPlayers } from './others.js';
 
 /**
  * @function rainbowText() - Turn text into colored text that supports MCBE
@@ -60,9 +59,9 @@ function writeLeaderboard([x, y, z], objective, { displayLength, leaderboardHead
     });
     leaderboard = [...new Map(leaderboard.map(item => [item['gamertag'], item])).values()];
 
-    Minecraft.World.getPlayers().forEach(player => {
-        const data = getScore({ objective }, { entityRequirements: `[type=player,name="${player.name}"]`});
-        if(data) onlineLeaderboard.push({ gamertag: player.name, score: data[0] });
+    getPlayers().forEach(player => {
+        const data = getScore({ objective }, { entityRequirements: `[type=player,name="${player}"]`});
+        if(data) onlineLeaderboard.push({ gamertag: player, score: data[0] });
     });
 
     for(let i = 0; i < onlineLeaderboard.length; i++) {
