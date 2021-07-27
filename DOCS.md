@@ -99,16 +99,16 @@
 - Custom built in events
     - **playerJoin** - `This event fires when a player joins the game.`
       ## Properties
-      - **name** - `array`
+      - **name** - `string`
       
-        *Returns an __array__ of all players currently in the world.*
+        *Returns the players name*
       
     - **playerLeft** - `This event fires when a player leaves the game.`
 
       ## Properties
-      - **name** - `array`
+      - **name** - `string`
       
-        *Returns an __array__ of all players currently in the world.*
+        *Returns the players name*
 </div>
 
 **Example script**:
