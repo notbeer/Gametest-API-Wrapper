@@ -144,13 +144,13 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Discord - [notbeer#9204](https://discordapp.com/users/606353040336748584/)
 
-Project Link: [https://github.com/notbeer/MCBE-GameTest-FrameWork](https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/DOCS.md)
+Project Link: [https://github.com/notbeer/MCBE-GameTest-FrameWork](https://github.com/notbeer/MCBE-GameTest-FrameWork)
 
 
 ## Acknowledgements
 
 * [GameTest FrameWork Documentation](https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/minecraft)
-* [Pack Documentation](https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/minecraft)
+* [Pack Documentation](https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/DOCS.md)
 
 
 [contributors-shield]: https://img.shields.io/github/contributors/notbeer/MCBE-GameTest-FrameWork.svg?style=for-the-badge
