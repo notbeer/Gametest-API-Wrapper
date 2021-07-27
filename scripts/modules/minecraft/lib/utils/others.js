@@ -29,10 +29,10 @@ function runCommands(commands) {
 function findEntityAtPos([x, y, z], { dimension } = {}) {
     try {
         const entity = Minecraft.World.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation(new Minecraft.BlockLocation(parseInt(x), parseInt(y), parseInt(z)));
-        const players = Minecraft.World.getPlayers();
+        const players = getPlayers();
         for(let i = 0; i < entity.length; i++)
             for(let j = 0; j < players.length; j++)
-                if(entity[i].nameTag == players[j].nameTag) entity.splice(i, 1);
+                if(entity[i].nameTag == players[j]) entity.splice(i, 1);
         return { list: entity, error: false };
     } catch (err) {
         return { list: null, error: true };
@@ -55,7 +55,7 @@ function findTag({ entityRequirements } = {}, { searchTag }) {
     };
 };
 /**
- * 
+ * @function getScore() - Get score of a player from a specific scoreboard
  * @param {string} objective - The scoreboard objective of where you want to get the score 
  * @param {string} entityRequirements - Requirements for the entity. Same syntax as Minecraft commands. For example: [type=player,r=10]
  * @param {number} minimum - The minimum range you want to test for
@@ -66,6 +66,15 @@ function getScore({ objective }, { entityRequirements, minimum, maximum } = {}) 
     const data = runCommand(`scoreboard players test @e${entityRequirements ? `[${entityRequirements.replace(/\]|\[/g, '')}]` : ''} ${objective} ${minimum ? minimum : '*'} ${maximum ? maximum : '*'}`);
     if(data.error) return;
     return data.result.statusMessage.match(/(?<=Score ).+?(?= is in range (-\d+|\d+) to (-\d+|\d+))/g);
+};
+/**
+ * @function getPlayers() - Get an array of online players in the world
+ * @returns string[]
+ */
+function getPlayers() {
+    let data = [];
+    data = runCommand(`testfor @a`).result.statusMessage;
+    return data.replace(/^Found\s/).replace(/^undefined/, '').split(', ');
 };
 /**
  * @function setTickTimeout() - Delay executing a function, ONCE
@@ -120,4 +129,4 @@ MCEvent.on('everyTick', () => {
 });
 
 
-export { runCommand, runCommands, findEntityAtPos, getScore, findTag, setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval };
+export { runCommand, runCommands, findEntityAtPos, getScore, getPlayers, findTag, setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval };
