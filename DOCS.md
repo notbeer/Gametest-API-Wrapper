@@ -22,7 +22,7 @@
     <li>
       <a href="#handler">Handlers</a>
       <ul>
-        <li><a href="#event-listener">Event Listener</a></li>
+        <li><a href="#event-listeners">Event Listener</a></li>
       </ul>
       <ul>
         <li><a href="#custom-commands">Custom Commands</a></li>
