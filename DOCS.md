@@ -46,6 +46,9 @@
         <li><a href="#get-score">Get Score</a></li>
       </ul>
       <ul>
+        <li><a href="#get-players">Get Players</a></li>
+      </ul>
+      <ul>
         <li><a href="#set-tick-timeout">Set Tick Timeout</a></li>
       </ul>
       <ul>
@@ -66,16 +69,16 @@
 
 <h1 align="center" id="handler"><u>Handlers</u></h1>
 
-## Event Listener
+## Event Listeners
 - Class `MCEvent`
 - Methods
-    - **on(event: string, callback: VoidFunction): void** - `Fires the callback on event.`
-    - **once(event: string, callback: VoidFunction): void** - `Fires the callback only ONCE on event.`
+    - **on(event: string, callback: () => void): void** - `Fires the callback on event.`
+    - **once(event: string, callback: () => void): void** - `Fires the callback only ONCE on event.`
     - **removeListener(event: string): void** - `Removes an event listener.`
     - **removeAllListener(): void** - `Removes all of the event listeners.`
     - **totalListener(): object[]** - `Gets total listener for events(s)`
- 
-- Available events that work
+
+- Available working GameTest events
     - **beforeMessage** - `This event fires before a chat message is broadcast or delivered.`
     - **onMessage** - `This event is triggered after a chat message has been broadcast or sent to players.`
     - **everyTick** - `This event fires every tick - which is 20 times per second.`
@@ -83,9 +86,21 @@
     - **entityCreate** - `This event fires when a new entity is created.`
     - **weatherChange** - `This event will be triggered when the weather changes within Minecraft.`
 
-Make sure to import `MCEvent` from the path [`scripts/modules/minecraft/lib/eventHandler.js`](https://github.com/notbeer/MCBE-GameTest-FrameWork/tree/main/scripts/modules/minecraft/lib/eventHandler.js) correctly
+- Custom built in events
+    - **playerJoin** - `This event fires when a player joins the game.`
+      ## Properties
+      - **name** - `array`
+      
+        *Returns an __array__ of all players currently in the world.*
+      
+    - **playerLeft** - `This event fires when a player leaves the game.`
 
-Example script 1:
+      ## Properties
+      - **name** - `array`
+      
+        *Returns an __array__ of all players currently in the world.*
+
+**Example script**:
 ```javascript
 import { Commands } from 'Minecraft';
 import MCEvent from "./lib/eventHandler.js";
@@ -103,12 +118,13 @@ MCEvent.once('beforeMessage', data => {
     Commands.run(`say : This will only be sent once before your message is sent in chat :P`);
 });
 ```
+Make sure to import `MCEvent` from the path [`scripts/modules/minecraft/lib/eventHandler.js`](https://github.com/notbeer/MCBE-GameTest-FrameWork/tree/main/scripts/modules/minecraft/lib/eventHandler.js) correctly
 **NOTE: The callback data returned on the events will have the same properties as mentioned in [`Microsoft GameTest Docs`](https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/minecraft).**
 
 ## Custom Commands
 - Class `Command`
 - Method
-    - **register(registration: object, callback: VoidFunction): void** - `Register your custom command`
+    - **register(registration: object, callback: () => void): void** - `Register your custom command`
     - **getCommandRegistration(name: string): string** - `Get registration information of a specific command`
     - **getCommands(): string[]** - `Get a list of all the registered commands`
 
@@ -235,6 +251,21 @@ Command.register(registerInformation, (chatmsg, args) => {
   ```
 </div>
 
+<div id="get-players">
+
+- **getPlayers(): string[]** - `Get all the online players in the world`
+  ```javascript
+  import { Commands } from 'Minecraft';
+  import { getPlayers } from './lib/utils/others.js';
+
+  const allPlayers = getPlayers();
+  allPlayers.forEach(player => {
+    Commands.run(`say : ${player} is in the world!`);
+  });
+  
+  ```
+</div>
+
 <div id="set-tick-timeout">
 
 - **setTickTimeout(callback: () => void, tick?: number): void** - `This function is similar to built in js "setTimeout" function, which is not supported by Gametest API. Instead of milliseconds as delay, we will use ticks. 20 ticks = 1 second`
@@ -243,7 +274,7 @@ Command.register(registerInformation, (chatmsg, args) => {
   import { setTickTimeout } from './lib/utils/others.js';
 
   setTickTimeout(() => {
-    Commands.run(`say : This has been executed 1 minute after the function has been executed`)
+    Commands.run(`say : This has been executed 1 minute after the function has been executed`);
   }, 1200);
   ```
 </div>
@@ -256,7 +287,7 @@ Command.register(registerInformation, (chatmsg, args) => {
   import { setTickInterval } from './lib/utils/others.js';
 
   setTickInterval(() => {
-    Commands.run(`say : This is being broadcasted every 1 second in game!`)
+    Commands.run(`say : This is being broadcasted every 1 second in game!`);
   }, 20);
   ```
 </div>
