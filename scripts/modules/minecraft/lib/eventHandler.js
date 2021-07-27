@@ -18,8 +18,8 @@ MCEvent.on('everyTick', () => {
     } catch(err) {};
     let playerJoined = currentPlayer.filter(current => !oldPlayer.some(old => current === old));
     let playerLeft = oldPlayer.filter(old => !currentPlayer.some(current => old === current));
-    if(playerJoined[0]) MCEvent.emit('playerJoin', { name: playerJoined });
-    if(playerLeft[0]) MCEvent.emit('playerLeft', { name: playerLeft });
+    playerJoined.forEach(player => MCEvent.emit('playerJoin', { name: player }));
+    playerLeft.forEach(player => MCEvent.emit('playerLeft', { name: player }));
     oldPlayer = currentPlayer;
 });
 
