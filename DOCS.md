@@ -22,7 +22,12 @@
     <li>
       <a href="#handler">Handlers</a>
       <ul>
-        <li><a href="#event-listeners">Event Listener</a></li>
+        <li>
+          <a href="#event-listeners">Event Listener</a>
+          <ul>
+          <li><a href="#gametest-events">GameTest Events</a></li>
+          <li><a href="#custom-events">Custom Built in Events</a></li>
+          </ul>
       </ul>
       <ul>
         <li><a href="#custom-commands">Custom Commands</a></li>
@@ -78,6 +83,8 @@
     - **removeAllListener(): void** - `Removes all of the event listeners.`
     - **totalListener(): object[]** - `Gets total listener for events(s)`
 
+<div id="gametest-events">
+
 - Available working GameTest events
     - **beforeMessage** - `This event fires before a chat message is broadcast or delivered.`
     - **onMessage** - `This event is triggered after a chat message has been broadcast or sent to players.`
@@ -85,6 +92,9 @@
     - **effectAdded** - `This event fires when an effect, like poisoning, is added to an entity.`
     - **entityCreate** - `This event fires when a new entity is created.`
     - **weatherChange** - `This event will be triggered when the weather changes within Minecraft.`
+</div>
+
+<div id="custom-events">
 
 - Custom built in events
     - **playerJoin** - `This event fires when a player joins the game.`
@@ -99,6 +109,7 @@
       - **name** - `array`
       
         *Returns an __array__ of all players currently in the world.*
+</div>
 
 **Example script**:
 ```javascript
