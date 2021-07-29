@@ -68,6 +68,9 @@
       <ul>
         <li><a href="#floating-leaderboard">Floating Leaderboard</a></li>
       </ul>
+      <ul>
+        <li><a href="#condition-function">Conditional Function</a></li>
+      </ul>
     </li>
   </ol>
 </details>
@@ -277,6 +280,20 @@ Command.register(registerInformation, (chatmsg, args) => {
   ```
 </div>
 
+<div id="get-item-count">
+
+- **getItemCount({ player, itemIdentifier, itemData }: { player: string, itemIdentifier: string, itemData: number }): number** - `Get a specific item count in a players inventory`
+  ```javascript
+  import { Commands } from 'Minecraft';
+  import { getItemCount } from './lib/utils/others.js';
+
+  const itemCount = getItemCount({ player: 'ColoringEmy86', itemIdentifier: 'minecraft:diamond', itemData: 0 });
+
+  Commands.run(`say ColoringEmy86 has ${itemCount} diamonds in their inventory!`)
+  
+  ```
+</div>
+
 <div id="set-tick-timeout">
 
 - **setTickTimeout(callback: () => void, tick?: number): void** - `This function is similar to built in js "setTimeout" function, which is not supported by Gametest API. Instead of milliseconds as delay, we will use ticks. 20 ticks = 1 second`
@@ -343,5 +360,19 @@ Command.register(registerInformation, (chatmsg, args) => {
           }
       );
   });
+  ```
+</div>
+
+<div id="conditional-function">
+
+- **mcFunction(commands: string[]): object** - `Execute an array of commands, supports conditional`
+  ```javascript
+  import { mcFunction } from "./lib/utils/misc.js";
+
+  const functionArray = [
+    'clear @a diamond 0 1',
+    '%say I was able to successfully clear a diamond from someone in this world!'
+  ];
+  mcFunction(functionArray);
   ```
 </div>
