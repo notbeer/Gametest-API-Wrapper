@@ -65,7 +65,7 @@ function findTag({ entityRequirements } = {}, { searchTag }) {
 function getScore({ objective }, { entityRequirements, minimum, maximum } = {}) {
     const data = runCommand(`scoreboard players test @e${entityRequirements ? `[${entityRequirements.replace(/\]|\[/g, '')}]` : ''} ${objective} ${minimum ? minimum : '*'} ${maximum ? maximum : '*'}`);
     if(data.error) return;
-    return data.result.statusMessage.match(/(?<=Score ).+?(?= is in range (-\d+|\d+) to (-\d+|\d+))/g);
+    return data.result.statusMessage.match(/(?<=Score ).+?(?= is in range (-\d+|\d+) to (-\d+|\d+))/);
 };
 /**
  * @function getPlayers() - Get an array of online players in the world
@@ -75,6 +75,13 @@ function getPlayers() {
     let data = [];
     data = runCommand(`testfor @a`).result.statusMessage;
     return data.replace(/^Found\s/).replace(/^undefined/, '').split(', ');
+};
+
+function getItemCount({ player, itemIdentifier, itemData }) {
+    const data = runCommand(`clear "${player}" ${itemIdentifier} ${itemData} 0`);
+    if(data.error) return '0';
+    const count = data.result.statusMessage.match(new RegExp(`(?<=${player} has ).+?(?= items that match the criteria)`))[0];
+    return count ? count : '0';
 };
 /**
  * @function setTickTimeout() - Delay executing a function, ONCE
@@ -129,4 +136,4 @@ MCEvent.on('everyTick', () => {
 });
 
 
-export { runCommand, runCommands, findEntityAtPos, getScore, getPlayers, findTag, setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval };
+export { runCommand, runCommands, findEntityAtPos, getScore, getPlayers, getItemCount, findTag, setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval };
