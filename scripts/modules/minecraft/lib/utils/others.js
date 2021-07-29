@@ -77,6 +77,13 @@ function getPlayers() {
     return data.replace(/^Found\s/).replace(/^undefined/, '').split(', ');
 };
 
+/**
+ * @function getItemCount() - Get a specific item count in a players inventory
+ * @param {string} player - The player you want to check 
+ * @param {string} itemIdentifier - The item you want to check the count for
+ * @param {number} itemData - The item data you want to check for
+ * @returns number
+ */
 function getItemCount({ player, itemIdentifier, itemData }) {
     const data = runCommand(`clear "${player}" ${itemIdentifier} ${itemData} 0`);
     if(data.error) return '0';
