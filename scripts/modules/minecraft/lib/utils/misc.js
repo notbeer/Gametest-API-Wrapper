@@ -34,7 +34,7 @@ function displayRank(chatmsg) {
 
 /**
  * @function writeLeaderboard() - Display a floating text of the top players on a scoreboard. For this leaderboard to display highest ranking players, the players must join the game while this function is running.
- * @param {Array} [xyz] - The position where your entity is at. This entities name will change to the leaderboard. Make sure there are no other entities on the same position
+ * @param {number} [xyz] - The position where your entity is at. This entities name will change to the leaderboard. Make sure there are no other entities on the same position
  * @param {string} objective - The scoreboard objective you want to display the players from
  * @param {number} displayLength - Amount of players you would display in the leaderboard
  * @param {string} leaderboardHeading - Text you want to display on top of the leaderboard
@@ -82,18 +82,23 @@ function writeLeaderboard([x, y, z], objective, { displayLength, leaderboardHead
     getEntity.list[0].nameTag = `${leaderboardString}${saveData}`;
 };
 
-export { rainbowText, displayRank, writeLeaderboard };
-
-
-/*
-let cmdArray = [
-    ''
-];
-
+/**
+ * @function mcFunction() - Ability to make a command conditional! Put a '%' before your command. This will make it so the command would only execute only IF the command before it executed successfully!
+ * @param {array} cmdArray - Array of command you want to execute 
+ * @returns object
+ */
 function mcFunction(cmdArray) {
-    if(/^%/g.test(cmdArray[0])) return runCommand(`say : §cFirst command element in the Array §lCANNOT§r§c be Conditional`);
+    const conditionalRegex = /^%/;
+    if(conditionalRegex.test(cmdArray[0])) return runCommand(`say : §cFirst command in the Array §lCANNOT§r§c be Conditional`);
+    let success = true;
     for(let i = 0; i < cmdArray.length; i++) {
-        const data = runCommand(cmdArray[i]);
+        const data = runCommand(cmdArray[i].replace(conditionalRegex, ''));
+        if(data.error && conditionalRegex.test(cmdArray[i + 1])) {
+            i++;
+            success = false;
+        };
     };
+    return { error: success };
 };
-*/
+
+export { rainbowText, displayRank, writeLeaderboard, mcFunction };
