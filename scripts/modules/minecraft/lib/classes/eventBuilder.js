@@ -20,7 +20,7 @@ export default class eventBuilder {
         this.listeners.splice(index, 1);
     };
     /**
-     * Removes all of the event listeners
+     * @function removeAllListener() - Removes all of the event listeners
      */
     removeAllListener() {
         this.listeners = [];
@@ -34,7 +34,7 @@ export default class eventBuilder {
         return event ? this.listeners.filter(element => element.eventName === event) : this.listeners;
     };
     /**
-     * Executes the callback till' event listener is removed
+     * @function on() - Executes the callback till' event listener is removed
      * @param {String} event - Event you want to listen for
      * @param {VoidFunction} callback - Code you want to execute when the listener is executed
      */
@@ -42,7 +42,7 @@ export default class eventBuilder {
         this.addListener(event, callback, false);
     };
     /**
-     * Executes the callback only once
+     * @function once() - Executes the callback only once
      * @param {String} event - Event you want to listen for
      * @param {VoidFunction} callback - Code you want to execute when the listener is executed
      */
