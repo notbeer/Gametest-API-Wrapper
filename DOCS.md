@@ -69,7 +69,7 @@
         <li><a href="#floating-leaderboard">Floating Leaderboard</a></li>
       </ul>
       <ul>
-        <li><a href="#condition-function">Conditional Function</a></li>
+        <li><a href="#conditional-function">Conditional Function</a></li>
       </ul>
     </li>
   </ol>
