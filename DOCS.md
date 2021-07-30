@@ -54,6 +54,9 @@
         <li><a href="#get-players">Get Players</a></li>
       </ul>
       <ul>
+        <li><a href="#get-item-count">Get Item Count</a></li>
+      </ul>
+      <ul>
         <li><a href="#set-tick-timeout">Set Tick Timeout</a></li>
       </ul>
       <ul>
