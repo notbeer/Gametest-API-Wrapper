@@ -18,9 +18,9 @@ Command.register(registerInformation, (chatmsg, args) => {
     const data = runCommand(`tag "${chatmsg.sender.name}" list`).result;
     const coordFormat = /(?<=[x-zX-Z]: )(-\d+|\d+)/g;
     const homeName = args.slice(1).join(' ').toLowerCase();
-    const homeRegex = new RegExp(`\\$\\(Home{Home-Name: \\b${homeName}\\b, X: (-\\d+|\\d+), Y: (-\\d+|\\d+), Z: (-\\d+|\\d+)(.*)}\\)`, 'g');
+    const homeRegex = new RegExp(`\\$\\(Home{Home-Name: ${homeName}, X: (-\\d+|\\d+), Y: (-\\d+|\\d+), Z: (-\\d+|\\d+)(.*)}\\)`);
 
-    const findHomeNames = /(?<=\(Home{Home-Name: ).+?(?=, X: (-\d+|\d+), Y: (-\d+|\d+), Z: (-\d+|\d+)}\))/g;
+    const findHomeNames = /(?<=\$\(Home{Home-Name: ).+?(?=, X: (-\d+|\d+), Y: (-\d+|\d+), Z: (-\d+|\d+)}\))/g;
     const findXYZ = `${data.statusMessage.match(homeRegex)}`.match(coordFormat);
 
     let listOptions = ['list', 'all'];let setOptions = ['set', 'add'];let removeOptions = ['remove', 'unadd'];let warpOptions = ['warp', 'tp'];
@@ -39,8 +39,7 @@ Command.register(registerInformation, (chatmsg, args) => {
         if(!args[1]) return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§cPlease type a home name to remove!"}]}`);
         if(!data.statusMessage.match(homeRegex)) return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§cYou don't have a home with that name!"}]}`);
         else {
-            const tag = data.statusMessage.match(homeRegex);
-            runCommand(`tag "${chatmsg.sender.name}" remove "${tag[0]}"`);
+            runCommand(`tag "${chatmsg.sender.name}" remove "$(Home{Home-Name: ${homeName}, X: ${findXYZ[0]}, Y: ${findXYZ[1]}, Z: ${findXYZ[2]}})"`);
             return runCommand(`tellraw "${chatmsg.sender.name}" {"rawtext":[{"text":"§bSuccessfully removed home with the name §a${homeName} §bat §a${findXYZ[0]}§r, §a${findXYZ[1]}§r, §a${findXYZ[2]}"}]}`);
         };
     } else if(warpOptions.includes(args[0])) {
