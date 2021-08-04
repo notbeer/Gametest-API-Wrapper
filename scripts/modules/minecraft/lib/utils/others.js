@@ -74,7 +74,7 @@ function getScore({ objective }, { entityRequirements, minimum, maximum } = {}) 
 function getPlayers() {
     let data = [];
     data = runCommand(`testfor @a`).result.statusMessage;
-    return data.replace(/^Found\s/).replace(/^undefined/, '').split(', ');
+    return data.replace(/^Found\s/, '').split(', ');
 };
 
 /**
