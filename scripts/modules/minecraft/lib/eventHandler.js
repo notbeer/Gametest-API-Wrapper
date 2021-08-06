@@ -14,7 +14,7 @@ MCEvent.on('everyTick', () => {
     let currentPlayer = [];
     try {
         const data = Commands.run(`testfor @a`).statusMessage;
-        currentPlayer = data.replace(/^Found\s/).replace(/^undefined/, '').split(', ');
+        currentPlayer = data.replace(/^\S*\s/, '').split(', ');
     } catch(err) {};
     let playerJoined = currentPlayer.filter(current => !oldPlayer.some(old => current === old));
     let playerLeft = oldPlayer.filter(old => !currentPlayer.some(current => old === current));
