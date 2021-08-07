@@ -4,7 +4,6 @@ import { runCommand } from "../../lib/utils/others.js";
 const registerInformation = {
     private: false,
     cancelMessage: true,
-    ownerOnly: false,
     name: 'ping',
     aliases: ['Ping2'],
     description: 'This is a test command',
