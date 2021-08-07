@@ -47,15 +47,15 @@ function writeLeaderboard([x, y, z], objective, { displayLength, leaderboardHead
     leaderboardHeading ? null : leaderboardHeading = `${objective.toUpperCase()} LEADERBOARD`;
     leaderboardLayout ? null : leaderboardLayout = '§e#$(RANK) §7$(GAMERTAG) §r- §e$(SCORE)';
 
-    const getEntity = findEntityAtPos([x, y, z]);
+    const getEntity = findEntityAtPos([x, y, z], { entityIgnore: ['minecraft:player']});
     if(getEntity.error) return;
     const entityName = getEntity.list[0].nameTag.replace(/\n|§/g, '');
-    let dataGamertag = entityName.match(new RegExp(`(?<=\\$\\(${objective}-objective{gamertag: ).+?(?=, score: (-\\d+|\\d+)}\\))`, 'g'));
+    let dataGamertag = entityName.match(new RegExp(`(?<=\\$\\(${objective}-objective{gamertag: ).+?(?=, score: .*?}\\))`, 'g'));
     let dataScore = entityName.match(new RegExp(`(?<=\\$\\(${objective}-objective{gamertag: \\D.*, score: ).+?(?=}\\))`, 'g'));
     
     let leaderboard = [], onlineLeaderboard = [];
     if(dataGamertag && getEntity.list[0].nameTag) dataGamertag.map(function(gamertag, index) {
-        leaderboard.push({ gamertag, score: dataScore[index] });
+        leaderboard.push({ gamertag, score: dataScore[index].replace(/\D/g, '0') });
     });
     leaderboard = [...new Map(leaderboard.map(item => [item['gamertag'], item])).values()];
 
