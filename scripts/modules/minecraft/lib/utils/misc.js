@@ -61,7 +61,7 @@ function writeLeaderboard([x, y, z], objective, { displayLength, leaderboardHead
 
     getPlayers().forEach(player => {
         const data = getScore({ objective }, { entityRequirements: `[type=player,name="${player}"]`});
-        if(data) onlineLeaderboard.push({ gamertag: player, score: data[0] });
+        if(data) onlineLeaderboard.push({ gamertag: player, score: data });
     });
 
     for(let i = 0; i < onlineLeaderboard.length; i++) {

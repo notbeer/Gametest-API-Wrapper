@@ -58,7 +58,7 @@ function findTag({ entityRequirements } = {}, { searchTag }) {
 function getScore({ objective }, { entityRequirements, minimum, maximum } = {}) {
     const data = runCommand(`scoreboard players test @e${entityRequirements ? `[${entityRequirements.replace(/\]|\[/g, '')}]` : ''} ${objective} ${minimum ? minimum : '*'} ${maximum ? maximum : '*'}`);
     if(data.error) return;
-    return data.result.statusMessage.match(/\d+/);
+    return data.result.statusMessage.match(/\d+/)[0];
 };
 /**
  * @function getPlayers() - Get an array of online players in the world
