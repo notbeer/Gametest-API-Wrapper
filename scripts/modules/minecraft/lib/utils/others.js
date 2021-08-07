@@ -1,5 +1,4 @@
 import * as Minecraft from 'Minecraft';
-import MCEvent from '../eventHandler.js';
 
 /**
  * @function runCommand() - Run a command in game with error handling
@@ -22,17 +21,15 @@ function runCommands(commands) {
 };
 /**
  * @function findEntityAtPos() - Find all the entities at a certain block position
- * @param {string} dimension - The dimension where you want to search the entity. Options: 'overworld' | 'nether' | 'the end'
  * @param {array} [xyz] - X, Y, Z position of the entity. Example: [0, 5, 0]
+ * @param {string} dimension - The dimension where you want to search the entity. Options: 'overworld' | 'nether' | 'the end'
  * @returns property 'entity', which holds the array of entity found in that position. And property 'error' for error status.
  */
-function findEntityAtPos([x, y, z], { dimension } = {}) {
+function findEntityAtPos([x, y, z], { dimension, entityIgnore } = {}) {
     try {
         const entity = Minecraft.World.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation(new Minecraft.BlockLocation(parseInt(x), parseInt(y), parseInt(z)));
-        const players = getPlayers();
         for(let i = 0; i < entity.length; i++)
-            for(let j = 0; j < players.length; j++)
-                if(entity[i].nameTag == players[j]) entity.splice(i, 1);
+            if(entityIgnore.includes(entity[i].id)) entity.splice(i, 1);
         return { list: entity, error: false };
     } catch (err) {
         return { list: null, error: true };
@@ -51,7 +48,7 @@ function findTag({ entityRequirements } = {}, { searchTag }) {
         const tagRegex = new RegExp(`:(.+)\\b${searchTag}\\b`, 'g');
         if(parsedData.match(tagRegex)) return true;
     } catch(err) {
-        runCommand(`say : An error has occured, while trying to parse the player tag data. Please reload your world if this error keeps occuring...\n§c${err}`)
+        return { error: err };
     };
 };
 /**
@@ -65,7 +62,7 @@ function findTag({ entityRequirements } = {}, { searchTag }) {
 function getScore({ objective }, { entityRequirements, minimum, maximum } = {}) {
     const data = runCommand(`scoreboard players test @e${entityRequirements ? `[${entityRequirements.replace(/\]|\[/g, '')}]` : ''} ${objective} ${minimum ? minimum : '*'} ${maximum ? maximum : '*'}`);
     if(data.error) return;
-    return data.result.statusMessage.match(/(?<=Score ).+?(?= is in range (-\d+|\d+) to (-\d+|\d+))/);
+    return data.result.statusMessage.match(/\d+/);
 };
 /**
  * @function getPlayers() - Get an array of online players in the world
@@ -73,8 +70,8 @@ function getScore({ objective }, { entityRequirements, minimum, maximum } = {}) 
  */
 function getPlayers() {
     let data = [];
-    data = runCommand(`testfor @a`).result.statusMessage;
-    return data.replace(/^Found\s/, '').split(', ');
+    data = runCommand(`list`).result.players.split(', ');
+    return data;
 };
 
 /**
@@ -87,8 +84,8 @@ function getPlayers() {
 function getItemCount({ player, itemIdentifier, itemData }) {
     const data = runCommand(`clear "${player}" ${itemIdentifier} ${itemData} 0`);
     if(data.error) return '0';
-    const count = data.result.statusMessage.match(new RegExp(`(?<=${player} has ).+?(?= items that match the criteria)`))[0];
-    return count ? count : '0';
+    const itemCount = data.result.playerTest[0].match(/(?<=.*?\().+?(?=\))/)[0];
+    return itemCount ? itemCount : '0';
 };
 /**
  * @function setTickTimeout() - Delay executing a function, ONCE
@@ -130,7 +127,7 @@ function clearTickInterval(interval) {
 };
 
 let totalTick = 0;
-MCEvent.on('everyTick', () => {
+Minecraft.World.events.tick.subscribe(() => {
     totalTick++;
     for(let i = 0; i < tickTimeouts.length; i++) {
         tickTimeouts[i].tick--;
