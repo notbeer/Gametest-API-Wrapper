@@ -152,7 +152,6 @@ Registration Information requirements:
 interface registrationInformationInterface {
     private?: boolean, //Optional - If true the command won't be displayed upon "help" command execution
     cancelMessage?: boolean, //Optional - If true players text won't be sent in chat when they execute the command
-    ownerOnly?: boolean, //Optional - If set to true player requires the "OWNER" tag to execute the command
     name: string, //Required - The command name
     aliases?: string[], //Optional - More command names. This basically gives you the ability to execute the same command under multiple names
     description?: string, //Optional - Description on what the command does
@@ -168,7 +167,6 @@ import { runCommand } from "../../lib/utils/others.js";
 const registerInformation = {
     private: false,
     cancelMessage: true,
-    ownerOnly: false,
     name: 'ping',
     aliases: ['ping2'],
     description: 'This is a test command',
@@ -230,12 +228,12 @@ Command.register(registerInformation, (chatmsg, args) => {
 
 <div id="find-entity-at-pos">
 
-- **findEntityAtPos([x, y, z]: Number[], { dimension }: { dimension?: 'overworld' | 'nether' | 'the end' | undefined }): object[]** - `Gets an array of object with the entity data`
+- **findEntityAtPos([x, y, z]: Number[], { dimension, entityIgnore }: { dimension?: 'overworld' | 'nether' | 'the end' | undefined, entityIgnore?: string[] }): object[]** - `Gets an array of object with the entity data`
   ```javascript
   import { Commands } from 'Minecraft';
   import { findEntityAtPos } from './lib/utils/others.js';
 
-  const entityData = findEntityAtPos([0, 5, 0]);
+  const entityData = findEntityAtPos([0, 5, 0], { entityIgnore: ['minecraft:player'] });
   if(entityData.error) return Commands.run(`say : No enitity found at that positon`);
 
   Commands.run(`say : Entity Location: ${entityData.list[0].location.x}, ${entityData.list[0].location.y}, ${entityData.list[0].location.z}`);
