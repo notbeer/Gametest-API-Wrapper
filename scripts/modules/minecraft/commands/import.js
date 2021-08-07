@@ -3,6 +3,5 @@ import './test/ping.js';
 
 import './information/help.js';
 import './misc/home.js';
-import './private/eval.js'
 
 import './misc/sell.js';
