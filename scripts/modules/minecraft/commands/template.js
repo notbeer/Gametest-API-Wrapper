@@ -3,7 +3,6 @@ import Command from "./../lib/commandHandler.js"; //You must import this in ever
 const registerInformation = { //You must fill in these informations to register the command
     private: Boolean, //Optional - If true the command won't be displayed upon "help" command execution
     cancelMessage: Boolean, //Optional - If true players text won't be sent in chat when they execute the command
-    ownerOnly: Boolean, //Optional - If set to true player requires the "OWNER" tag to execute the command
     name: String, //Required - The command name
     aliases: Array, //Optional - More command names. This basically gives you the ability to execute the same command under multiple names
     description: String, //Optional - Description on what the command does
