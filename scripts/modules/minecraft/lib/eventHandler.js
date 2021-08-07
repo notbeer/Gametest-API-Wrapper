@@ -1,6 +1,9 @@
+import { World } from 'Minecraft';
+
 import eventBuilder from "./classes/eventBuilder.js";
 const MCEvent = new eventBuilder();
-import { World, Commands } from 'Minecraft';
+
+import { getPlayers } from './utils/others.js';
 
 World.events.beforeChat.subscribe(data => MCEvent.emit('beforeMessage', data));
 World.events.chat.subscribe(data => MCEvent.emit('onMessage', data));
@@ -11,15 +14,11 @@ World.events.changeWeather.subscribe((data) => MCEvent.emit('weatherChange', dat
 
 let oldPlayer = [];
 MCEvent.on('everyTick', () => {
-    let currentPlayer = [];
-    try {
-        const data = Commands.run(`testfor @a`).statusMessage;
-        currentPlayer = data.replace(/^\S*\s/, '').split(', ');
-    } catch(err) {};
+    let currentPlayer = getPlayers();
     let playerJoined = currentPlayer.filter(current => !oldPlayer.some(old => current === old));
     let playerLeft = oldPlayer.filter(old => !currentPlayer.some(current => old === current));
-    playerJoined.forEach(player => MCEvent.emit('playerJoin', { name: player }));
-    playerLeft.forEach(player => MCEvent.emit('playerLeft', { name: player }));
+    if(playerJoined[0]) for(let player of playerJoined) MCEvent.emit('playerJoin', { name: player });
+    if(playerLeft[0]) for(let player of playerLeft) MCEvent.emit('playerLeft', { name: player });
     oldPlayer = currentPlayer;
 });
 
