@@ -6,7 +6,7 @@ import { config } from './index.js';
 
 MCEvent.on('beforeMessage', data => {
     if(data.message.startsWith(config.commandPrefix)) return;
-    if(findTag({ entityRequirements: `[type=player,name="${data.sender.name}"]` }, { searchTag: 'rainbowText'})) data.message = rainbowText(data.message);
+    if(findTag({ searchTag: 'rainbowText'}, `[type=player,name="${data.sender.name}"]`)) data.message = rainbowText(data.message);
     displayRank(data);
 });
 
