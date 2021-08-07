@@ -1,5 +1,5 @@
 import { config } from "../../index.js";
-import { runCommand, findTag } from "../utils/others.js";
+import { runCommand } from "../utils/others.js";
 
 export default class commandBuilder {
     constructor() {
@@ -58,7 +58,6 @@ export default class commandBuilder {
         const command = this.commands.some(element => element.name.toLowerCase() === name || element.aliases && element.aliases.includes(name));
         if(!command) return runCommand(`tellraw "${data.sender.name}" {"rawtext":[{"text":"§c"},{"translate":"commands.generic.unknown", "with": ["§f${name}§c"]}]}`);
         this.commands.forEach(element => {
-            if(element.register.ownerOnly && !findTag({ entityRequirements: `[type=player,name="${data.sender.name}"]` }, { searchTag: 'OWNER' })) return;
             const eachCommand = element.name.toLowerCase() === name || element.aliases && element.aliases.includes(name);
             if(!eachCommand) return;
             if(!element.register.cancelMessage) data.canceled = false;
