@@ -37,19 +37,15 @@ function findEntityAtPos([x, y, z], { dimension, entityIgnore } = {}) {
 };
 /**
  * @function findTag() - Check if an entity has a certain tag
+ * @param {string} searchTag - Tag you are seraching for. WARNING: Color Coding with § is ignored
  * @param {string} entityRequirements - Requirements for the entity. Same syntax as Minecraft commands. For example: [type=player,r=10]
- * @param {string} searchTag - Tag you are seraching for 
  * @returns boolean
  */
 function findTag({ entityRequirements } = {}, { searchTag }) {
-    try {
-        const data = runCommand(`tag @e${entityRequirements ? `[${entityRequirements.replace(/\]|\[/g, '')}]` : ''} list`).result;
-        const parsedData = data.statusMessage.replace(/(:(.§a))/g, ': ').replace(/(§r, §a)/g, ' ');
-        const tagRegex = new RegExp(`:(.+)\\b${searchTag}\\b`, 'g');
-        if(parsedData.match(tagRegex)) return true;
-    } catch(err) {
-        return { error: err };
-    };
+    const data = runCommand(`tag @e${entityRequirements ? `[${entityRequirements.replace(/\]|\[/g, '')}]` : ''} list`).result;
+    if(data.error) return false;
+    const allTags = data.statusMessage.match(/(?<=: ).*$/)[0].split('§r, §a');
+    for(const tag of allTags) if(tag.replace(/§./g, '').match(new RegExp(`^${searchTag.replace(/§./g, '')}$`))) return true;
 };
 /**
  * @function getScore() - Get score of a player from a specific scoreboard
