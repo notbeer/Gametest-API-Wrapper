@@ -8,7 +8,7 @@ import { compressNumber, formatNumber } from './formatter.js';
  * @param {beforeChat} chatmsg Object that is passed down after a chat event is fired. Make it has the property 'message'
  */
 function displayRank(chatmsg) {
-    const data = Server.runCommand(`tag ${chatmsg.sender.nameTag} list`).result;
+    const data = Server.runCommand(`tag ${chatmsg.sender.nameTag} list`);
     const allRanks = data.statusMessage.match(/(?<=\$\(ChatRank{Rank-Name: ).+?(?=}\))/g);
     if(!allRanks) return; 
     chatmsg.canceled = true;

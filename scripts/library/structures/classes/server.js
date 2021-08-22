@@ -12,7 +12,7 @@ class ServerBuilder {
     };
     getPlayers() {
         let data = [];
-        data = this.runCommand(`list`).result.players.split(', ');
+        data = this.runCommand(`list`).players.split(', ');
         return data;
     };
     getEntityAtPos([x, y, z], { dimension, ignoreType } = {}) {
@@ -27,9 +27,9 @@ class ServerBuilder {
     };
     runCommand(command) {
         try {
-            return { error: false, result: Minecraft.Commands.run(command) };
+            return { error: false, ...Minecraft.Commands.run(command) };
         } catch(error) {
-            return { error: true, result: error };
+            return { error: true };
         };
     };
     runCommands(commands) {

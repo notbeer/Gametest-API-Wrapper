@@ -14,7 +14,7 @@ const registerInformation = {
 };
 
 Command.register(registerInformation, (chatmsg, args) => {
-    const data = Server.runCommand(`tag "${chatmsg.sender.nameTag}" list`).result;
+    const data = Server.runCommand(`tag "${chatmsg.sender.nameTag}" list`);
     const coordFormat = /(?<=[x-zX-Z]: )(-\d+|\d+)/g;
     const homeName = args.slice(1).join(' ').toLowerCase();
     const homeRegex = new RegExp(`\\$\\(Home{Home-Name: ${homeName}, X: (-\\d+|\\d+), Y: (-\\d+|\\d+), Z: (-\\d+|\\d+)(.*)}\\)`);

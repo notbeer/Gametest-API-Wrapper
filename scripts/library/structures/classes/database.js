@@ -34,7 +34,7 @@ export default class Database {
     getTableData() {
         const data = Server.runCommand(`scoreboard players list`);
         if(data.error) return;
-        const objectiveUsers = data.result.statusMessage.match(/(?<=\n).*/)[0];
+        const objectiveUsers = data.statusMessage.match(/(?<=\n).*/)[0];
         const player = objectiveUsers.replace(/\\"/g, '"').match(new RegExp(`({"NOTBEER_DB_TABLE":"${this.table}","data":{.*?}}+$)|({"NOTBEER_DB_TABLE":"${this.table}","data":{.*?}}+(?=,\\s))`))
         if(player) return JSON.parse(player[0]);
     };
