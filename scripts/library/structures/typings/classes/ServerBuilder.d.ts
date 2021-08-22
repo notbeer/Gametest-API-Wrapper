@@ -48,6 +48,8 @@ interface getEntityAtPosReturn {
     error: Boolean
 }
 interface runCommandReturn {
-    error: Boolean
-    result: Object
+    error: boolean,
+    statusCode: number,
+    statusMessage: string,
+    playerTest?: Array<string>
 }
