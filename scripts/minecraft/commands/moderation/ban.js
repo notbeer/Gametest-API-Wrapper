@@ -27,7 +27,7 @@ Command.register(registerInformation, (chatmsg, args) => {
     const foundPlayer = Server.findPlayer(player);
     if(!foundPlayer) return Server.broadcast(`§cCouldn't find player §f"§a${player}§f" §conline`, chatmsg.sender.nameTag);
     if(foundPlayer && player === chatmsg.sender.nameTag) return Server.broadcast(`§cYou cannot ban yourself`, chatmsg.sender.nameTag);
-    //if(Entity.findTag('staff', `[type=player,name="${player}"]`)) return Server.broadcast('§cYou may not ban a staff member!', chatmsg.sender.nameTag);
+    if(Entity.findTag('staff', `[type=player,name="${player}"]`)) return Server.broadcast('§cYou may not ban a staff member!', chatmsg.sender.nameTag);
     if(db.hasKey(player)) return Server.broadcast(`§cPlayer §f"§a${player}§f" §cis already banned...`, chatmsg.sender.nameTag);
 
     let restArgs = args.join(' ').match(new RegExp(`(?<=^"${player}"\\s).+`));
