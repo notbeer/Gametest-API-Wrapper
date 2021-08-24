@@ -13,6 +13,7 @@
 </ul>
 
 <br />
+<p>Make sure to Import your command file in <a href="https://github.com/notbeer/Framework-Wrapper/blob/main/scripts/minecraft/commands/import-command.js">import-command.js</a> file</p>
 <p>Register Information requirements:</p>
 
 ```typescript
@@ -27,7 +28,6 @@ interface registrationInformation {
 };
 ```
 
-<p>Make sure to Import your command file in <a href="https://github.com/notbeer/Framework-Wrapper/blob/main/scripts/minecraft/commands/import-command.js">import-command.js</a>file</p>
 <div id="register">
 
 - **register(register: registerInformation, callback: (data: beforeChat, args: string[]) => void): void** - `Registers the command`
