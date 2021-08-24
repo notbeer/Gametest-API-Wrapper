@@ -10,10 +10,10 @@ https://github.com/othneildrew/Best-README-Template
 <a href="https://github.com/notbeer/MCBE-GameTest-FrameWork">
     <img src="https://camo.githubusercontent.com/2cfb14ae080080e092ff1e37841ba04f7ee1ae6ac19be3503f995bf2e90c9479/68747470733a2f2f736372756d6f72672d776562736974652d70726f642e73332e616d617a6f6e6177732e636f6d2f64727570616c2f696e6c696e652d696d616765732f323031382d30392f556e6465727374616e64696e67253230616e642532304170706c79696e67253230536372756d2e706e67" alt="Logo" width="80" height="80">
   </a>
-  <h3 align="center"><u>Framework Wrapper</u></h3>
+  <h3 align="center"><u>GameTest Framework Wrapper</u></h3>
 
   <p align="center">
-    Framework Wrapper is a pack that allows you to interact with GameTest FrameWork API easily! This pack will help to keep your code clean and compact. And makes interactions with the API much easier.
+    GameTest Framework Wrapper is a pack that allows you to interact with GameTest FrameWork API easily! This pack will help to keep your code clean and compact. And makes interactions with the API much easier. Basically an API wrapper...
     <br />
     <a href="https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/DOCS/DOCS.md"><strong>Explore the docs »</strong></a>
     <br />
@@ -67,7 +67,7 @@ https://github.com/othneildrew/Best-README-Template
 
 ## About The Project
 
-  Framework wrapper basically provides you with a lot of classes and utils for you to work with. This will make your life easier, while working with the GameTest Framework API.
+  GameTest Framework wrapper basically provides you with a lot of classes and utils for you to work with. This will make your life easier, while working with the GameTest Framework API.
 
 
 ### Built With
@@ -82,10 +82,10 @@ https://github.com/othneildrew/Best-README-Template
 ## Getting Started
 
 Easy Method
-* Download this zip folder and name it to .mcpack and import it by double clicking on the folder. This method will only worlk, if you have Minecraft Bedrock Edition on the same device you are doing this action on.
+* Download this zip folder and name it to `.mcpack` and import it by double clicking on the folder. This method will only work if you have Minecraft Bedrock Edition on the same device you are doing this action on.
 
 Recommended Method
-* Another Method would be to take the zipped folder and unzip/extract it. Take your folder and move it to the folder 'development_behavior_packs', which can be found in a path like '_\Users\USER_NAME\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\development_behavior_packs_'. This will make your life way easier, while developing this pack. It will update the content inside your game everytime you make any changes to the script. For the changes to apply you must leave and rejoin your world where the pack is applied at.
+* Another Method would be to take the zipped folder and unzip/extract it. Take your folder and move it to the folder 'development_behavior_packs', which can be found in a path like `\Users\USER_NAME\AppData\Local\Packages\Microsoft.MinecraftUWP_8wekyb3d8bbwe\LocalState\games\com.mojang\development_behavior_packs`. This will make your life way easier, while developing this pack. It will update the content inside your game everytime you make any changes to the script. For the changes to apply you must leave and rejoin your world where the pack is applied at.
 
 <br />
 
@@ -147,7 +147,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Discord - [notbeer#9204](https://discordapp.com/users/606353040336748584/)
+Discord - Message me on [notbeer#9204](https://discordapp.com/users/606353040336748584/) on contact me throught the [Bedrock OSS](https://discord.gg/y4cnaJ9E9C) Discord server
 
 Project Link: [https://github.com/notbeer/MCBE-GameTest-FrameWork](https://github.com/notbeer/MCBE-GameTest-FrameWork)
 
