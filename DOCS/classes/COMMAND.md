@@ -26,6 +26,8 @@ interface registrationInformation {
     example?: Array<string> //Optional - Type in the parameter options of the commands if there are any
 };
 ```
+
+<p>Make sure to Import your command file in <a href="https://github.com/notbeer/Framework-Wrapper/blob/main/scripts/minecraft/commands/import-command.js">import-command.js</a>file</p>
 <div id="register">
 
 - **register(register: registerInformation, callback: (data: beforeChat, args: string[]) => void): void** - `Registers the command`
