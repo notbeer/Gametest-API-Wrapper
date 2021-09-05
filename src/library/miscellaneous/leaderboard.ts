@@ -15,7 +15,7 @@ import { compressNumber, formatNumber } from '../utils/formatter.js';
  * @param {boolean} [formatScore] Will format your score. For ex: "1400" -> "1,400", "1000000" -> "1,000,000", etc...
  * @example writeLeaderboard([0, 6, 0], 'money', { displayLength: 10, leaderboardHeading: 'Money Leaderboard\nTop players with the most Money\n§r\n', leaderboardLayout: '§e#$(RANK) §b$(GAMERTAG) §f- §a$§c$(SCORE)' }, { compressScore: true });
  */
-export function writeLeaderboard([x, y, z]: [number, number, number], objective: string, displayLength: number, { leaderboardHeading, leaderboardLayout }: { leaderboardHeading?: string, leaderboardLayout?: string } = {}, { compressScore, formatScore }: { compressScore?: boolean, formatScore?: boolean } = {}): void {
+export function writeLeaderboard([x, y, z]: [number, number, number], objective: Array<string>, displayLength: number, { leaderboardHeading, leaderboardLayout }: { leaderboardHeading?: string, leaderboardLayout?: string } = {}, { compressScore, formatScore }: { compressScore?: boolean, formatScore?: boolean } = {}): void {
     leaderboardHeading ? null : leaderboardHeading = `${objective[0].toUpperCase()} LEADERBOARD`;
     leaderboardLayout ? null : leaderboardLayout = '§e#$(RANK) §7$(GAMERTAG) §r- §e$(SCORE)';
 
