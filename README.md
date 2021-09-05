@@ -7,22 +7,22 @@ https://github.com/othneildrew/Best-README-Template
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-<a href="https://github.com/notbeer/MCBE-GameTest-FrameWork">
+<a href="https://github.com/notbeer/Gametest-API-Wrapper">
     <img src="https://camo.githubusercontent.com/2cfb14ae080080e092ff1e37841ba04f7ee1ae6ac19be3503f995bf2e90c9479/68747470733a2f2f736372756d6f72672d776562736974652d70726f642e73332e616d617a6f6e6177732e636f6d2f64727570616c2f696e6c696e652d696d616765732f323031382d30392f556e6465727374616e64696e67253230616e642532304170706c79696e67253230536372756d2e706e67" alt="Logo" width="80" height="80">
   </a>
-  <h3 align="center"><u>GameTest Framework Wrapper</u></h3>
+  <h3 align="center"><u>GameTest API Wrapper</u></h3>
 
   <p align="center">
-    GameTest Framework Wrapper is a pack that allows you to interact with GameTest FrameWork API easily! This pack will help to keep your code clean and compact. And makes interactions with the API much easier. Basically an API wrapper...
+    Gametest API Wrapper is a library built using Minecraft Bedrock Edition Gametest API. This library will help you keep your code clean and make it easier to interact with the Gametest API, while including a lot of new functions/methods for you to use! This pack will have some miscellaneous and some custom command that you may use! 
     <br />
-    <a href="https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/DOCS/DOCS.md"><strong>Explore the docs »</strong></a>
+    <a href=""><strong>Docs Coming soon »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/notbeer/MCBE-GameTest-FrameWork">View Demo</a>
+    <a href="https://github.com/notbeer/Gametest-API-Wrapper">View Demo</a>
     ·
-    <a href="https://github.com/notbeer/MCBE-GameTest-FrameWork/issues">Report Bug</a>
+    <a href="https://github.com/notbeer/Gametest-API-Wrapper/issues">Report Bug</a>
     ·
-    <a href="https://github.com/notbeer/MCBE-GameTest-FrameWork/issues">Request Feature</a>
+    <a href="https://github.com/notbeer/Gametest-API-Wrapper/issues">Request Feature</a>
   </p>
 </p>
 
@@ -47,9 +47,6 @@ https://github.com/othneildrew/Best-README-Template
       <ul>
         <li><a href="#installation">Installation</a></li>
       </ul>
-      <ul>
-        <li><a href="https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/DOCS/DOCS.md">Documentations</a></li>
-      </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
@@ -67,7 +64,7 @@ https://github.com/othneildrew/Best-README-Template
 
 ## About The Project
 
-  GameTest Framework wrapper basically provides you with a lot of classes and utils for you to work with. This will make your life easier, while working with the GameTest Framework API.
+  Gametest API Wrapper will provide you with a lot of classes and methods for you to use. There be a lot of useful custom methods for you to use. There are also classes like Database. Gametest API doesn't come with a Database as of now, so I have added a way for you to easily store and get access to the data. There are a lot more stuff in this library!
 
 
 ### Built With
@@ -93,7 +90,7 @@ Recommended Method
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/notbeer/MCBE-GameTest-FrameWork.git
+   git clone https://github.com/notbeer/Gametest-API-Wrapper.git
    ```
 <br />
 
@@ -105,16 +102,14 @@ Most of the features should work as of now version 1.17.10. A lot of the class, 
 
 
 Create a new world, since GameTest FrameWork is still experimental. Make sure in your settings you have `GameTest FrameWork` enabled under `Experiments` category.
-At last type in the game chat `+help` for the list of custom commands or `+help [command name]` to get information on a specific command! You can edit/add commands to the pack in the folder.
-
-Check the [documentations](https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/DOCS/DOCS.md) on Framework Wrapper for more features!
+I have some examples on how you can use this library. Specifically on custom commands. Type in the game chat `+help` for the list of custom commands or `+help [command name]` to get information on a specific command! You can edit/add commands to the pack in the folder.
 
 <!-- ROADMAP -->
 <br />
 
 ## Roadmap
 
-See the [open issues](https://github.com/notbeer/MCBE-GameTest-FrameWork/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/notbeer/Gametest-API-Wrapper/issues) for a list of proposed features (and known issues).
 
 
 
@@ -147,25 +142,24 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Discord - Message me on [notbeer#9204](https://discordapp.com/users/606353040336748584/) on contact me throught the [Bedrock OSS](https://discord.gg/y4cnaJ9E9C) Discord server
+Discord - Message me on [notbeer#9204](https://discordapp.com/users/606353040336748584/) or contact me throught the [Bedrock OSS](https://discord.gg/y4cnaJ9E9C) Discord server.
 
-Project Link: [https://github.com/notbeer/MCBE-GameTest-FrameWork](https://github.com/notbeer/MCBE-GameTest-FrameWork)
+Project Link: [https://github.com/notbeer/Gametest-API-Wrapper](https://github.com/notbeer/Gametest-API-Wrapper)
 
 <br />
 
 ## Acknowledgements
 
 * [GameTest FrameWork Documentation](https://docs.microsoft.com/en-us/minecraft/creator/scriptapi/mojang-minecraft/mojang-minecraft)
-* [Pack Documentation](https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/DOCS/DOCS.md)
 
 
 [contributors-shield]: https://img.shields.io/github/contributors/notbeer/MCBE-GameTest-FrameWork.svg?style=for-the-badge
-[contributors-url]: https://github.com/notbeer/MCBE-GameTest-FrameWork/graphs/contributors
+[contributors-url]: https://github.com/notbeer/Gametest-API-Wrapper/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/notbeer/MCBE-GameTest-FrameWork.svg?style=for-the-badge
-[forks-url]: https://github.com/notbeer/MCBE-GameTest-FrameWork/network/members
+[forks-url]: https://github.com/notbeer/Gametest-API-Wrapper/network/members
 [stars-shield]: https://img.shields.io/github/stars/notbeer/MCBE-GameTest-FrameWork.svg?style=for-the-badge
-[stars-url]: https://github.com/notbeer/MCBE-GameTest-FrameWork/stargazers
+[stars-url]: https://github.com/notbeer/Gametest-API-Wrapper/stargazers
 [issues-shield]: https://img.shields.io/github/issues/notbeer/MCBE-GameTest-FrameWork.svg?style=for-the-badge
-[issues-url]: https://github.com/notbeer/MCBE-GameTest-FrameWork/issues
+[issues-url]: https://github.com/notbeer/Gametest-API-Wrapper/issues
 [license-shield]: https://img.shields.io/github/license/notbeer/MCBE-GameTest-FrameWork.svg?style=for-the-badge
-[license-url]: https://github.com/notbeer/MCBE-GameTest-FrameWork/blob/main/LICENSE.txt
+[license-url]: https://github.com/notbeer/Gametest-API-Wrapper/blob/main/LICENSE.txt

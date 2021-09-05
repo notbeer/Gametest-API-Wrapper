@@ -1,9 +1,9 @@
 {
     "format_version": 2,
     "header": {
-        "description": "Framework Wrapper is a pack that allows you to interact with GameTest FrameWork API easily! This pack will help to keep your code clean and compact. And makes interactions with the API much easier. Pack also includes a lot of cool/useful utils!\n\nThis pack was created by notbeer!\n§9Discord: §fnotbeer#9204\n§aXbox Live: §fColoringEmy86\nThis pack will provide a basic start with §eGameTest FrameWork§f. Including a good §acommand handler and §afew example commands§f!",
-        "name": "Framework Wrapper",
-        "uuid": "918f111a-cd35-11eb-b8bc-0242ac130003",
+        "description": "Gametest Framework Wrapper is a library built using Minecraft Bedrock Edition Gametest Framework API.\nThis library will help you keep your code clean and make it easier to interact with the Gametest Framework API, while including a lot of new functions for you to use!\nThis pack will have some miscellaneous and some custom command that you may use!\nFor more information head over to the github: §bhttps://github.com/notbeer/Gametest-API-Wrapper",
+        "name": "GameTest Framework Wrapper",
+        "uuid": "33dcebd6-08a5-11ec-9a03-0242ac130003",
         "version": [0, 0, 1],
         "min_engine_version": [ 1, 14, 0 ]
     },
@@ -11,9 +11,9 @@
         {
             "description": "GameTest FrameWork Module Minecraft",
             "type": "javascript",
-            "uuid": "9953c724-cd35-11eb-b8bc-0242ac130003",
+            "uuid": "21c183fe-0c37-11ec-82a8-0242ac130003",
             "version": [0, 0, 1],
-            "entry": "scripts/minecraft/index.js"
+            "entry": "scripts/example/index.js"
         }
     ],
     "dependencies": [

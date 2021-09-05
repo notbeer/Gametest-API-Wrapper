@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "module": "ES2020",
+        "moduleResolution": "node",
+        "target": "ES2020",
+        "lib": ["ES2020"],
+        "allowSyntheticDefaultImports": true,
+        "noImplicitAny": true,
+        "preserveConstEnums": true,
+        "sourceMap": false,
+        "outDir": "scripts"
+    },
+    "include": [
+        "src",
+        "src/library/*"    
+    ],
+    "exclude": [
+        "scripts",
+    ],
+}

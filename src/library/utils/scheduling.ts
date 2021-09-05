@@ -1,7 +1,9 @@
 import * as Minecraft from 'Minecraft';
+
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();
 let tickTimeoutID = 0, tickIntervalID = 0;
+
 /**
  * Delay executing a function
  * @typedef
@@ -10,13 +12,12 @@ let tickTimeoutID = 0, tickIntervalID = 0;
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
  */
-function setTickTimeout(handler, timeout, ...args) {
+function setTickTimeout(handler: string | Function, timeout?: number, ...args: any[]): number {
     const tickTimeout = { callback: handler, tick: timeout, args };
     tickTimeoutID++;
     tickTimeoutMap.set(tickTimeoutID, tickTimeout);
     return tickTimeoutID;
-}
-;
+};
 /**
  * Delay executing a function, REPEATEDLY
  * @typedef
@@ -25,47 +26,42 @@ function setTickTimeout(handler, timeout, ...args) {
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
  */
-function setTickInterval(handler, timeout, ...args) {
+function setTickInterval(handler: string | Function, timeout?: number, ...args: any[]): number {
     const tickInterval = { callback: handler, tick: timeout, args };
     tickIntervalID++;
     tickIntervalMap.set(tickIntervalID, tickInterval);
     return tickIntervalID;
-}
-;
+};
 /**
  * Delete a clearTickTimeout
  * @typedef
  * @param {number} handle Index you want to delete
  */
-function clearTickTimeout(handle) {
+function clearTickTimeout(handle: number): void {
     tickTimeoutMap.delete(handle);
-}
-;
+};
 /**
  * Delete a clearTickInterval
  * @typedef
  * @param {number} handle Index you want to delete
  */
-function clearTickInterval(handle) {
+function clearTickInterval(handle: number): void {
     tickIntervalMap.delete(handle);
-}
-;
+};
+
 let totalTick = 0;
 Minecraft.World.events.tick.subscribe(() => {
     totalTick++;
-    for (const [ID, tickTimeout] of tickTimeoutMap) {
+    for(const [ID, tickTimeout] of tickTimeoutMap) {
         tickTimeout.tick--;
-        if (tickTimeout.tick <= 0) {
+        if(tickTimeout.tick <= 0) {
             tickTimeout.callback(...tickTimeout.args);
             tickTimeout.delete(ID);
-        }
-        ;
-    }
-    ;
-    for (const [, tickInterval] of tickIntervalMap) {
-        if (totalTick % tickInterval.tick === 0)
-            tickInterval.callback(...tickInterval.args);
-    }
-    ;
+        };
+    };
+    for(const [, tickInterval] of tickIntervalMap) {
+        if(totalTick % tickInterval.tick === 0) tickInterval.callback(...tickInterval.args);
+    };
 });
+
 export { setTickTimeout, setTickInterval, clearTickTimeout, clearTickInterval };
