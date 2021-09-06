@@ -1,6 +1,5 @@
 import { Entity } from '../build/classes/entityBuilder.js';
 import { Player } from '../build/classes/playerBuilder.js';
-import { Server } from '../build/classes/serverBuilder.js';
 import { compressNumber, formatNumber } from '../utils/formatter.js';
 /**
  * Display a leaderboard on floating text of the top players on scoreboard(s). For this leaderboard to display highest ranking players, the players must join the game while this function is running.
@@ -33,10 +32,8 @@ export function writeLeaderboard([x, y, z], objective, displayLength, { leaderbo
     for (let i = 0; i < onlinePlayers.length; i++) {
         let score = 0;
         objective.forEach(dummy => score += Entity.getScore(dummy, `[type=player,name="${onlinePlayers[i]}"]`) || 0);
-        if (Server.runCommand(`testfor "${onlinePlayers[i]}"`).error)
-            return;
         const index = leaderboard.findIndex((obj => obj.gamertag === onlinePlayers[i]));
-        if (index)
+        if (index !== -1)
             leaderboard[index].score = score;
         else
             leaderboard.push({ gamertag: onlinePlayers[i], score });
