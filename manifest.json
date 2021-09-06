@@ -2,7 +2,7 @@
     "format_version": 2,
     "header": {
         "description": "Gametest Framework Wrapper is a library built using Minecraft Bedrock Edition Gametest Framework API.\nThis library will help you keep your code clean and make it easier to interact with the Gametest Framework API, while including a lot of new functions for you to use!\nThis pack will have some miscellaneous and some custom command that you may use!\nFor more information head over to the github: §bhttps://github.com/notbeer/Gametest-API-Wrapper",
-        "name": "GameTest Framework Wrapper",
+        "name": "GameTest API Wrapper",
         "uuid": "33dcebd6-08a5-11ec-9a03-0242ac130003",
         "version": [0, 0, 1],
         "min_engine_version": [ 1, 14, 0 ]
