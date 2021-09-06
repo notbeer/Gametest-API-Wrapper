@@ -106,7 +106,7 @@ export class PlayerBuilder {
      * @param {number} [minimum] Minumum score you are looking for
      * @param {number} [maximum] Maximum score you are looking for
      * @returns {number}
-     * @example PlayerBuilder.getScore('Money', '[name="notbeer"]', { minimum: 0 });
+     * @example PlayerBuilder.getScore('Money', 'notbeer', { minimum: 0 });
      */
     getScore(objective, player, { minimum, maximum } = {}) {
         const data = Server.runCommand(`scoreboard players test "${player}" ${objective} ${minimum ? minimum : '*'} ${maximum ? maximum : '*'}`);
