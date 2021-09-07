@@ -95,14 +95,13 @@ Recommended Method
 <br />
 
 ## Usage
-
-Most of the features should work as of now version 1.17.10. A lot of the class, methods, properties and more may change a lot. Since GameTest FrameWork is in heavy development as of now. 
-
 <strong>WARNING: </strong>`If you are going to apply any GameTest related scripts to your world, please make a copy of your world before you do so! I'm not responsible if anything goes wrong-`
 
 
 Create a new world, since GameTest FrameWork is still experimental. Make sure in your settings you have `GameTest FrameWork` enabled under `Experiments` category.
-I have some examples on how you can use this library. Specifically on custom commands. Type in the game chat `+help` for the list of custom commands or `+help [command name]` to get information on a specific command! You can edit/add commands to the pack in the folder.
+I have some examples on how you can use this library. Specifically on custom commands. Type in the game chat `+help` for the list of custom commands or `+help [command name]` to get information on a specific command!
+
+If you want to add or edit your own stuff to the pack. Please head to the [src](https://github.com/notbeer/Gametest-API-Wrapper/tree/main/src) folder. You can start working with the typescript files in there. At the end of your work make sure to transpile your work. You can run [transpile.sh](https://github.com/notbeer/Gametest-API-Wrapper/blob/main/transpile.sh) to tranpile your work!
 
 <!-- ROADMAP -->
 <br />
