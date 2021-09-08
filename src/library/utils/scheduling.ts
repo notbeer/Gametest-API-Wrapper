@@ -56,7 +56,7 @@ Minecraft.World.events.tick.subscribe(() => {
         tickTimeout.tick--;
         if(tickTimeout.tick <= 0) {
             tickTimeout.callback(...tickTimeout.args);
-            tickTimeout.delete(ID);
+            tickTimeoutMap.delete(ID);
         };
     };
     for(const [, tickInterval] of tickIntervalMap) {
