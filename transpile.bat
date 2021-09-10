@@ -1,5 +1,5 @@
 :: Deletes folders
-rd scripts/library
-rd scripts/example
+rd /s /q scripts\library
+rd /s /q scripts\example
 :: Transpiles
 npx tsc -watch
