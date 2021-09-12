@@ -1,4 +1,4 @@
-import * as Minecraft from 'Minecraft';
+import { World } from 'Minecraft';
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();
 let tickTimeoutID = 0, tickIntervalID = 0;
@@ -51,13 +51,13 @@ function clearTickInterval(handle) {
 }
 ;
 let totalTick = 0;
-Minecraft.World.events.tick.subscribe(() => {
+World.events.tick.subscribe(() => {
     totalTick++;
     for (const [ID, tickTimeout] of tickTimeoutMap) {
         tickTimeout.tick--;
         if (tickTimeout.tick <= 0) {
             tickTimeout.callback(...tickTimeout.args);
-            tickTimeout.delete(ID);
+            tickTimeoutMap.delete(ID);
         }
         ;
     }
