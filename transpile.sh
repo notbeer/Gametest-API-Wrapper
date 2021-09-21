@@ -1,5 +1,4 @@
 #Deletes folders
-rm -r scripts/library
-rm -r scripts/example
+rm -r scripts/*
 #Transpiles
 npx tsc -watch
