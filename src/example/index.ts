@@ -1,4 +1,3 @@
-import { writeLeaderboard } from '../library/miscellaneous/leaderboard.js';
 import './commands/import-commands.js';
 
 //Event Example
@@ -10,6 +9,8 @@ import { configuration } from '../library/build/configurations.js';
 Server.on('ready', data => {
     Server.broadcast(`World has been loaded in ${data.loadTime} ticks!`);
 });
+
+//This is how you would do the chat ranks
 Server.on('beforeMessage', data => {
     if(data.message.startsWith(configuration.prefix)) return;
     displayRank(data);
