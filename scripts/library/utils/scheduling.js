@@ -1,4 +1,4 @@
-import { World } from 'Minecraft';
+import { World } from 'mojang-minecraft';
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();
 let tickTimeoutID = 0, tickIntervalID = 0;
