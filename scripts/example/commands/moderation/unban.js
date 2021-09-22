@@ -9,7 +9,7 @@ const registerInformation = {
     usage: '"<player>"'
 };
 Server.command.register(registerInformation, (chatmsg, args) => {
-    if (!Server.player.findTag('staff', chatmsg.sender.nameTag))
+    if (!Server.player.hasTag('staff', chatmsg.sender.nameTag))
         return Server.broadcast("§cYou don't have the permission to execute this command!", chatmsg.sender.nameTag);
     if (!args.join(' ').match(findPlayerRegex))
         return Server.broadcast('§cError: Type the player name in quotations for the first argument', chatmsg.sender.nameTag);

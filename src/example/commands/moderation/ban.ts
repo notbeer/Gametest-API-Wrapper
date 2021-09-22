@@ -20,14 +20,14 @@ const registerInformation = {
 };
 
 Server.command.register(registerInformation, (chatmsg, args) => {
-    if(!Server.player.findTag('staff', chatmsg.sender.nameTag)) return Server.broadcast("§cYou don't have the permission to execute this command!", chatmsg.sender.nameTag);
+    if(!Server.player.hasTag('staff', chatmsg.sender.nameTag)) return Server.broadcast("§cYou don't have the permission to execute this command!", chatmsg.sender.nameTag);
 
     if(!args.join(' ').match(findPlayerRegex)) return Server.broadcast('§cType the player name in quotations for the first argument', chatmsg.sender.nameTag);
     const player = args.join(' ').match(findPlayerRegex)[0];
     const foundPlayer = Server.player.find(player);
     if(!foundPlayer) return Server.broadcast(`§cCouldn't find player §f"§a${player}§f" §conline`, chatmsg.sender.nameTag);
     if(foundPlayer && player === chatmsg.sender.nameTag) return Server.broadcast(`§cYou cannot ban yourself`, chatmsg.sender.nameTag);
-    if(Server.player.findTag('staff', player)) return Server.broadcast('§cYou may not ban a staff member!', chatmsg.sender.nameTag);
+    if(Server.player.hasTag('staff', player)) return Server.broadcast('§cYou may not ban a staff member!', chatmsg.sender.nameTag);
     if(db.has(player)) return Server.broadcast(`§cPlayer §f"§a${player}§f" §cis already banned...`, chatmsg.sender.nameTag);
 
     let restArgs = args.join(' ').match(new RegExp(`(?<=^"${player}"\\s).+`));
