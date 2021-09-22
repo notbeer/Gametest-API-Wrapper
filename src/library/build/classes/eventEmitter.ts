@@ -1,4 +1,4 @@
-import { EventEmitterConstructor, EventEmitterTypes } from "../../typings/build/classes/eventEmitter";
+import { EventEmitterConstructor, EventEmitterTypes } from "../../@types/build/classes/eventEmitter";
 
 export const EventEmitter: EventEmitterConstructor = class Class implements EventEmitterTypes {
     private _listeners: any[] = [];

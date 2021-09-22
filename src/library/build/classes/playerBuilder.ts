@@ -1,6 +1,7 @@
-import * as Minecraft from 'Minecraft';
+import * as Minecraft from 'mojang-minecraft';
 import { Server } from './serverBuilder.js';
-import { dimension, getPlayerAtPosReturn, getItemCountReturn } from '../../typings/build/classes/PlayerBuilder.js';
+import { dimension } from '../../@types/index';
+import { getPlayerAtPosReturn, getItemCountReturn } from '../../@types/build/classes/PlayerBuilder.js';
 
 export class PlayerBuilder {
     /**
@@ -18,9 +19,9 @@ export class PlayerBuilder {
      * @param {string} tag Tag you are seraching for (WARNING: Color Coding with § is ignored)
      * @param {string} [player] Requirements for the entity
      * @returns {boolean}
-     * @example PlayerBuilder.findTag("Owner", 'notbeer');
+     * @example PlayerBuilder.hasTag("Owner", 'notbeer');
      */
-    findTag(tag: string, player?: string): boolean {
+    hasTag(tag: string, player?: string): boolean {
         const allTags = this.getTags(player);
         if(!allTags) return false;
         for(const Tag of allTags) if(Tag.replace(/§./g, '').match(new RegExp(`^${tag.replace(/§./g, '')}$`))) return true;

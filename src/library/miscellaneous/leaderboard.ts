@@ -1,8 +1,9 @@
 import { Entity } from '../build/classes/entityBuilder.js';
 import { Player } from '../build/classes/playerBuilder.js';
-import { Server } from '../build/classes/serverBuilder.js';
 import { compressNumber, formatNumber } from '../utils/formatter.js';
 
+export function writeLeaderboard([x, y, z]: [number, number, number], objective: Array<string>, displayLength: number, { heading, layout }?: { heading?: string, layout?: string }, { formatScore }?: { formatScore: boolean }): void;
+export function writeLeaderboard([x, y, z]: [number, number, number], objective: Array<string>, displayLength: number, { heading, layout }?: { heading?: string, layout?: string }, { compressScore }?: { compressScore: boolean }): void;
 /**
  * Display a leaderboard on floating text of the top players on scoreboard(s). For this leaderboard to display highest ranking players, the players must join the game while this function is running.
  * @param {number} x The x position of your floating text entity
@@ -16,7 +17,7 @@ import { compressNumber, formatNumber } from '../utils/formatter.js';
  * @param {boolean} [formatScore] Will format your score. For ex: "1400" -> "1,400", "1000000" -> "1,000,000", etc...
  * @example writeLeaderboard([0, 6, 0], 'money', 10, { heading: 'Money Leaderboard\nTop players with the most Money\n§r\n', layout: '§e#$(RANK) §b$(GAMERTAG) §f- §a$§c$(SCORE)' }, { compressScore: true });
  */
-export function writeLeaderboard([x, y, z]: [number, number, number], objective: Array<string>, displayLength: number, { heading, layout }: { heading?: string, layout?: string } = {}, { compressScore, formatScore }: { compressScore?: boolean, formatScore?: boolean } = {}): any {
+export function writeLeaderboard([x, y, z]: [number, number, number], objective: Array<string>, displayLength: number, { heading, layout }: { heading?: string, layout?: string } = {}, { compressScore, formatScore }: { compressScore?: boolean, formatScore?: boolean } = {}): void {
     heading ? null : heading = `${objective[0].toUpperCase()} LEADERBOARD`;
     layout ? null : layout = '§e#$(RANK) §7$(GAMERTAG) §r- §e$(SCORE)';
 
@@ -27,8 +28,8 @@ export function writeLeaderboard([x, y, z]: [number, number, number], objective:
     let dataScore = entityName.match(/(?<=\$\(objective{gamertag: \D.*, score: ).+?(?=}\))/g);
     
     let leaderboard = [];
-    if(dataGamertag && getEntity.list[0].nameTag) dataGamertag.map((gamertag, index) => {
-        leaderboard.push({gamertag, score: parseInt(dataScore[index].replace(/\D/g, '0'))})
+    if(dataGamertag && getEntity.list[0].nameTag) dataGamertag.map((gamertag: string, index: number) => {
+        leaderboard.push({ gamertag, score: parseInt(dataScore[index].replace(/\D/g, '0')) });
     });
     const onlinePlayers = Player.list();
     for(const player of onlinePlayers) {

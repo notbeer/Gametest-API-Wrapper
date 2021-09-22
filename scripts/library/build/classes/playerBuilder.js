@@ -1,4 +1,4 @@
-import * as Minecraft from 'Minecraft';
+import * as Minecraft from 'mojang-minecraft';
 import { Server } from './serverBuilder.js';
 export class PlayerBuilder {
     /**
@@ -17,9 +17,9 @@ export class PlayerBuilder {
      * @param {string} tag Tag you are seraching for (WARNING: Color Coding with § is ignored)
      * @param {string} [player] Requirements for the entity
      * @returns {boolean}
-     * @example PlayerBuilder.findTag("Owner", 'notbeer');
+     * @example PlayerBuilder.hasTag("Owner", 'notbeer');
      */
-    findTag(tag, player) {
+    hasTag(tag, player) {
         const allTags = this.getTags(player);
         if (!allTags)
             return false;

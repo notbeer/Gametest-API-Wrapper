@@ -1,6 +1,7 @@
-import * as Minecraft from 'Minecraft';
+import * as Minecraft from 'mojang-minecraft';
 import { Server } from './serverBuilder.js';
-import { dimension, getEntityAtPosReturn } from '../../typings/build/classes/EntityBuilder';
+import { dimension } from '../../@types/index';
+import { getEntityAtPosReturn } from '../../@types/build/classes/EntityBuilder';
 
 export class EntityBuilder {
     /**
@@ -8,9 +9,9 @@ export class EntityBuilder {
      * @param {string} tag Tag you are seraching for (WARNING: Color Coding with § is ignored)
      * @param {string} [target] Requirements for the entity
      * @return {boolean}
-     * @example EntityBuilder.findTag("villager", '[type=villager]');
+     * @example EntityBuilder.hasTag("villager", '[type=villager]');
      */
-    findTag(tag: string, target?: string): boolean {
+    hasTag(tag: string, target?: string): boolean {
         const allTags = this.getTags(target);
         if(!allTags) return false;
         for(const Tag of allTags) if(Tag.replace(/§./g, '').match(new RegExp(`^${tag.replace(/§./g, '')}$`))) return true;

@@ -1,6 +1,6 @@
-import { BeforeChatEvent } from "Minecraft";
-import { storedRegisterInformation, registerInformation } from "../../typings/build/classes/CommandBuilder";
+import { BeforeChatEvent } from "mojang-minecraft";
 import { configuration } from "../configurations.js";
+import { storedRegisterInformation, registerInformation } from "../../@types/build/classes/CommandBuilder";
 
 export class CommandBuilder {
     public prefix: string = configuration.prefix;

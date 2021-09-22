@@ -1,4 +1,4 @@
-import { Entity } from "Minecraft";
+import { Entity } from "mojang-minecraft";
 
 export interface banDataObj {
     bannedPlayer: string,
@@ -8,7 +8,6 @@ export interface banDataObj {
     reason: string,
     bannedBy: string
 } 
-export type dimension = 'overworld' | 'nether' | 'the end';
 
 export interface getPlayerAtPosReturn {
     list: Array<Entity> | null,

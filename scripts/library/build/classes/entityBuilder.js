@@ -1,4 +1,4 @@
-import * as Minecraft from 'Minecraft';
+import * as Minecraft from 'mojang-minecraft';
 import { Server } from './serverBuilder.js';
 export class EntityBuilder {
     /**
@@ -6,9 +6,9 @@ export class EntityBuilder {
      * @param {string} tag Tag you are seraching for (WARNING: Color Coding with § is ignored)
      * @param {string} [target] Requirements for the entity
      * @return {boolean}
-     * @example EntityBuilder.findTag("villager", '[type=villager]');
+     * @example EntityBuilder.hasTag("villager", '[type=villager]');
      */
-    findTag(tag, target) {
+    hasTag(tag, target) {
         const allTags = this.getTags(target);
         if (!allTags)
             return false;
