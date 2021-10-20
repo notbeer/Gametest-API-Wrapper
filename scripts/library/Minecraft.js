@@ -38,7 +38,7 @@ class ServerBuild extends ServerBuilder {
             const getCommand = Command.getAllRegistation().some(element => element.name === command || element.aliases && element.aliases.includes(command));
             if (!getCommand) {
                 data.cancel = true;
-                return this.runCommand(`tellraw "${data.sender.nameTag}" {"rawtext":[{"text":"§c"},{"translate":"commands.generic.unknown", "with": ["§f${command}§c"]}]}`);
+                return this.runCommand(`tellraw "${data.sender.nameTag}" {"rawtext":[{"text":"§c"},{"translate":"commands.generic.unknown", "with": ["${command}"]}]}`);
             }
             ;
             Command.getAllRegistation().forEach(element => {
