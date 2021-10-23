@@ -1,30 +1,18 @@
 import { Commands, World } from 'mojang-minecraft';
-import { EventEmitter } from './eventEmitter.js';
+import { EventEmitter } from '../manager/EventEmitter.js';
 export class ServerBuilder extends EventEmitter {
     /**
      * Force shuts down the server
      * @example ServerBuilder.close()
      */
     close() {
-        function crash() {
+        const crash = () => {
             while (true) {
                 crash();
             }
             ;
-        }
-        ;
+        };
         crash();
-    }
-    ;
-    /**
-     * Broadcast a message in chat
-     * @param {string} text Message you want to broadcast in chat
-     * @param {string} [player] Player you want to broadcast to
-     * @returns {runCommandReturn}
-     * @example ServerBuilder.broadcast('Hello World!');
-     */
-    broadcast(text, player) {
-        return this.runCommand(`tellraw ${player ? `"${player}"` : '@a'} {"rawtext":[{"text":${JSON.stringify(text)}}]}`);
     }
     ;
     /**
@@ -43,7 +31,6 @@ export class ServerBuilder extends EventEmitter {
         ;
     }
     ;
-    //TODO: Improve this
     /**
      * Run an array of commands
      * @param {Array<string>} commands Put '%' before your commands. It will make it so it only executes if all the commands thta came before it executed successfully!
@@ -68,4 +55,4 @@ export class ServerBuilder extends EventEmitter {
     ;
 }
 ;
-export const Server = new ServerBuilder();
+export const ServerBuild = new ServerBuilder();

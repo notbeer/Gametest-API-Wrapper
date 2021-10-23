@@ -1,7 +1,12 @@
 import { World } from 'mojang-minecraft';
 
-const tickTimeoutMap = new Map();
-const tickIntervalMap = new Map();
+interface schedule {
+    callback: Function,
+    tick: number,
+    args: Array<any>
+}
+const tickTimeoutMap: Map<number, schedule> = new Map();
+const tickIntervalMap: Map<number, schedule> = new Map();
 let tickTimeoutID = 0, tickIntervalID = 0;
 
 /**
@@ -12,7 +17,7 @@ let tickTimeoutID = 0, tickIntervalID = 0;
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
  */
-function setTickTimeout(handler: string | Function, timeout?: number, ...args: any[]): number {
+function setTickTimeout(handler: Function, timeout?: number, ...args: any[]): number {
     const tickTimeout = { callback: handler, tick: timeout, args };
     tickTimeoutID++;
     tickTimeoutMap.set(tickTimeoutID, tickTimeout);
@@ -21,12 +26,12 @@ function setTickTimeout(handler: string | Function, timeout?: number, ...args: a
 /**
  * Delay executing a function, REPEATEDLY
  * @typedef
- * @param {string | Function} handler Function you want to execute
+ * @param {Function} handler Function you want to execute
  * @param {number} [timeout] Time delay in ticks. 20 ticks is 1 second
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
  */
-function setTickInterval(handler: string | Function, timeout?: number, ...args: any[]): number {
+function setTickInterval(handler: Function, timeout?: number, ...args: any[]): number {
     const tickInterval = { callback: handler, tick: timeout, args };
     tickIntervalID++;
     tickIntervalMap.set(tickIntervalID, tickInterval);
@@ -49,9 +54,7 @@ function clearTickInterval(handle: number): void {
     tickIntervalMap.delete(handle);
 };
 
-let totalTick = 0;
-World.events.tick.subscribe(() => {
-    totalTick++;
+World.events.tick.subscribe((data) => {
     for(const [ID, tickTimeout] of tickTimeoutMap) {
         tickTimeout.tick--;
         if(tickTimeout.tick <= 0) {
@@ -60,7 +63,7 @@ World.events.tick.subscribe(() => {
         };
     };
     for(const [, tickInterval] of tickIntervalMap) {
-        if(totalTick % tickInterval.tick === 0) tickInterval.callback(...tickInterval.args);
+        if(data.currentTick % tickInterval.tick === 0) tickInterval.callback(...tickInterval.args);
     };
 });
 

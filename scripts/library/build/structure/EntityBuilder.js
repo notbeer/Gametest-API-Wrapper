@@ -1,5 +1,5 @@
-import * as Minecraft from 'mojang-minecraft';
-import { Server } from './serverBuilder.js';
+import { World, BlockLocation } from 'mojang-minecraft';
+import { ServerBuild } from './serverBuilder.js';
 export class EntityBuilder {
     /**
      * Look for a tag on entitie(s)
@@ -30,7 +30,7 @@ export class EntityBuilder {
      */
     getAtPos([x, y, z], { dimension, ignoreType } = {}) {
         try {
-            const entity = Minecraft.World.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation(new Minecraft.BlockLocation(x, y, z));
+            const entity = World.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation(new BlockLocation(x, y, z));
             for (let i = 0; i < entity.length; i++)
                 if (ignoreType.includes(entity[i].id))
                     entity.splice(i, 1);
@@ -49,7 +49,7 @@ export class EntityBuilder {
      * @example EntityBuilder.getTags('[type=villager,name="Bob"]');
      */
     getTags(target) {
-        const data = Server.runCommand(`tag @e${target ? `[${target.replace(/\]|\[/g, '')}]` : ''} list`);
+        const data = ServerBuild.runCommand(`tag @e${target ? `[${target.replace(/\]|\[/g, '')}]` : ''} list`);
         if (data.error)
             return;
         let tags = data.statusMessage.match(/(?<=: ).*$/);
@@ -67,7 +67,7 @@ export class EntityBuilder {
      * @example EntityBuilder.getScore('Money', '[type=villager,name="Bob"]', { minimum: 0 });
      */
     getScore(objective, target, { minimum, maximum } = {}) {
-        const data = Server.runCommand(`scoreboard players test @e${target ? `[${target.replace(/\]|\[/g, '')}]` : ''} ${objective} ${minimum ? minimum : '*'} ${maximum ? maximum : '*'}`);
+        const data = ServerBuild.runCommand(`scoreboard players test @e${target ? `[${target.replace(/\]|\[/g, '')}]` : ''} ${objective} ${minimum ? minimum : '*'} ${maximum ? maximum : '*'}`);
         if (data.error)
             return;
         return parseInt(data.statusMessage.match(/-?\d+/)[0]);
@@ -75,4 +75,4 @@ export class EntityBuilder {
     ;
 }
 ;
-export const Entity = new EntityBuilder();
+export const EntityBuild = new EntityBuilder();

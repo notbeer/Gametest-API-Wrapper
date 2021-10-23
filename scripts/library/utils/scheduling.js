@@ -20,7 +20,7 @@ function setTickTimeout(handler, timeout, ...args) {
 /**
  * Delay executing a function, REPEATEDLY
  * @typedef
- * @param {string | Function} handler Function you want to execute
+ * @param {Function} handler Function you want to execute
  * @param {number} [timeout] Time delay in ticks. 20 ticks is 1 second
  * @param {any[]} args Function parameters for your handler
  * @returns {number}
@@ -50,9 +50,7 @@ function clearTickInterval(handle) {
     tickIntervalMap.delete(handle);
 }
 ;
-let totalTick = 0;
-World.events.tick.subscribe(() => {
-    totalTick++;
+World.events.tick.subscribe((data) => {
     for (const [ID, tickTimeout] of tickTimeoutMap) {
         tickTimeout.tick--;
         if (tickTimeout.tick <= 0) {
@@ -63,7 +61,7 @@ World.events.tick.subscribe(() => {
     }
     ;
     for (const [, tickInterval] of tickIntervalMap) {
-        if (totalTick % tickInterval.tick === 0)
+        if (data.currentTick % tickInterval.tick === 0)
             tickInterval.callback(...tickInterval.args);
     }
     ;

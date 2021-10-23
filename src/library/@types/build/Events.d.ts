@@ -11,7 +11,7 @@ import {
     PistonActivateEvent,
     WeatherChangeEvent 
 } from "mojang-minecraft";
-import { registerInformation } from './classes/CommandBuilder';
+import { registerInformation } from './structure/CommandBuilder';
 
 export interface EventList {
     beforeMessage: [BeforeChatEvent],

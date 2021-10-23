@@ -1,4 +1,4 @@
-import { Server } from "../../../library/Minecraft.js";
+import { Server } from '../../../library/Minecraft.js';
 const registerInformation = {
     cancelMessage: true,
     name: 'sell',
@@ -78,7 +78,7 @@ Server.command.register(registerInformation, (chatmsg, args) => {
             ]);
         });
         if (!sold)
-            return Server.broadcast("§cYou don't have any sellable items in your inventory!", chatmsg.sender.nameTag);
+            return Server.message.broadcast("§cYou don't have any sellable items in your inventory!", chatmsg.sender.nameTag);
     }
     ;
     const item = findItem();
@@ -87,5 +87,5 @@ Server.command.register(registerInformation, (chatmsg, args) => {
     else if (item)
         sell(item);
     else
-        Server.broadcast("§cPlease input an correct argument!", chatmsg.sender.nameTag);
+        Server.message.broadcast("§cPlease input an correct argument!", chatmsg.sender.nameTag);
 });

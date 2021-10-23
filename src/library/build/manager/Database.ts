@@ -1,31 +1,48 @@
-import { Server } from '../classes/serverBuilder.js';
+import { ServerBuild } from '../structure/serverBuilder.js';
+import { textToBinary, binaryToText } from '../../utils/formatter.js';
+
+/*
+type Mutable<T> = {
+    -readonly [k in keyof T]: T[k];
+};
+*/
 
 export default class Database {
-    [x: string]: any;
+    public readonly table: string;
+    public readonly json: object;
     constructor(table: string) {
-        if(!table) throw `[Database] constructor(): Error - Provide a table name`;
-        Server.runCommand('scoreboard objectives add GAMETEST_DB dummy');
+        this.json = { GAMETEST_DB_TABLE: this.table };
+        if(!table) console.warn(`[Database] constructor(): Error - Provide a table name`);
+        ServerBuild.runCommand('scoreboard objectives add GAMETEST_DB dummy');
         this.table = table;
         this._createTable();
+        // const mutableThis = this as Mutable<Database>;
     };
     /**
      * @private
      */
     private _createTable() {
         if(this._getTable()) return;
-        let json = { GAMETEST_DB_TABLE: this.table };
-        return Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
+        ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(this.json))})" GAMETEST_DB 0`);
     };
     /**
      * @private
      */
-    private _getTable() {
-        const data = Server.runCommand(`scoreboard players list`);
+    _getTable() {
+        const data = ServerBuild.runCommand(`scoreboard players list`);
         if(data.error) return;
-        const objectiveUsers = data.statusMessage.match(/(?<=\n).*/)[0];
-        const player = objectiveUsers.replace(/\\"/g, '"').match(new RegExp(`({"GAMETEST_DB_TABLE":"${this.table}".*?}+(?=,\\s)|{"GAMETEST_DB_TABLE":"${this.table}".*?}+$)`));
-        if(player) return JSON.parse(player[0]);
-        else throw `[Database]: Error - Table "${this.table}" doesn't exist, please restart the world to possibly fix this issue`;
+        const dataRegex = /(?<=^\$binary\()[0-1\s]+(?=\)$)/;
+        const objectiveUsers = data.statusMessage.match(/(?<=\n).*/)[0].split(', ');
+        for(const dummy of objectiveUsers) {
+            if(dataRegex.test(dummy)) {
+                try {
+                    return JSON.parse(binaryToText(dummy.match(dataRegex)[0]));
+                } catch(err) {
+                    ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(this.json))})" GAMETEST_DB 0`);
+                    return this.json;
+                };
+            };
+        };
     };
     /**
      * Save a value or update a value in the Database under a key
@@ -33,12 +50,11 @@ export default class Database {
      * @param {any} value The value you want to save
      * @example Database.set('Test Key', 'Test Value');
      */
-    set(key: string, value: any): void {
+    public set(key: string, value: any): void {
         let json = this._getTable();
-        if(typeof value === 'string') value = value.replace(/"/g, "'");
-        Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
+        ServerBuild.runCommand(`scoreboard players reset "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB`);
         Object.assign(json, { [key]: value });
-        Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
+        ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB 0`);
     };
     /**
      * Get the value of the key
@@ -46,7 +62,7 @@ export default class Database {
      * @returns {any}
      * @example Database.get('Test Key');
      */
-    get(key: string): any {
+    public get(key: string): any {
         let json = this._getTable();
         return json[key];
     };
@@ -56,7 +72,7 @@ export default class Database {
      * @returns {boolean}
      * @example Database.has('Test Key');
      */
-    has(key: string): boolean {
+    public has(key: string): boolean {
         return this.keys().includes(key);
     };
     /**
@@ -65,29 +81,29 @@ export default class Database {
      * @returns {boolean}
      * @example Database.delete('Test Key');
      */
-    delete(key: string): boolean {
+    public delete(key: string): boolean {
         let json = this._getTable();
-        Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
+        ServerBuild.runCommand(`scoreboard players reset "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB`);
         const status = delete json[key];
-        Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
+        ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB 0`);
         return status;
     };
     /**
      * Clear everything in the table
      * @example Database.clear()
      */
-    clear(): void {
+    public clear(): void {
         let json = this._getTable();
-        Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
+        ServerBuild.runCommand(`scoreboard players reset "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB`);
         json = { GAMETEST_DB_TABLE: this.table };
-        Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
+        ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB 0`);
     };
     /**
      * Get all the keys in the table
      * @returns {Array<string>}
      * @example Database.keys();
      */
-    keys(): Array<string> {
+    public keys(): Array<string> {
         let json = this._getTable();
         delete json["GAMETEST_DB_TABLE"];
         return Object.keys(json);
@@ -97,7 +113,7 @@ export default class Database {
      * @returns {Array<any>}
      * @example Database.values();
      */
-    values(): Array<any> {
+    public values(): Array<any> {
         let json = this._getTable();
         delete json["GAMETEST_DB_TABLE"];
         return Object.values(json);
@@ -107,7 +123,7 @@ export default class Database {
      * @returns {any}
      * @example Database.getCollection();
      */
-    getCollection(): any {
+    public getCollection(): any {
         let json = this._getTable();
         delete json["GAMETEST_DB_TABLE"];
         return json;
@@ -118,7 +134,7 @@ export default class Database {
      * @returns {boolean}
      * @example Database.hasAll('Test Key', 'Test Key 2', 'Test Key 3');
      */
-    hasAll(...keys: Array<string>): boolean {
+    public hasAll(...keys: Array<string>): boolean {
         return keys.every((k) => this.has(k));
     };
     /**
@@ -127,7 +143,7 @@ export default class Database {
      * @returns {boolean}
      * @example Database.hasAny('Test Key', 'Test Key 2', 'Test Key 3');
      */
-    hasAny(...keys: Array<string>): boolean {
+    public hasAny(...keys: Array<string>): boolean {
         return keys.some((k) => this.has(k));
     };
     /**
@@ -136,7 +152,7 @@ export default class Database {
      * @returns {Array<string>}
      * @example Database.firstKey(2);
      */
-    firstKey(amount?: number): Array<string> {
+    public firstKey(amount?: number): Array<string> {
         const keys = this.keys();
         if(typeof amount !== 'number') return [keys[0]];
         if(!amount) return [];
@@ -149,7 +165,7 @@ export default class Database {
      * @returns {Array<any>}
      * @example Database.firstValue(2);
      */
-    firstValue(amount?: number): Array<any> {
+    public firstValue(amount?: number): Array<any> {
         const values = this.values();
         if(typeof amount !== 'number') return [values[0]];
         if(!amount) return [];
@@ -162,7 +178,7 @@ export default class Database {
      * @returns {Array<string>}
      * @example Database.lastKey();
      */
-    lastKey(amount?: number): Array<string> {
+    public lastKey(amount?: number): Array<string> {
         const keys = this.keys();
         if(typeof amount !== 'number') return [keys[keys.length - 1]];
         if(!amount) return [];
@@ -175,7 +191,7 @@ export default class Database {
      * @returns {Array<any>}
      * @example Database.lastValue();
      */
-    lastValue(amount?: number): Array<any> {
+    public lastValue(amount?: number): Array<any> {
         const values = this.values();
         if(typeof amount !== 'number') return [values[values.length - 1]];
         if(!amount) return [];
@@ -188,7 +204,7 @@ export default class Database {
      * @returns {Array<string>}
      * @example Database.randomKey(3);
      */
-    randomKey(amount?: number): Array<string> {
+    public randomKey(amount?: number): Array<string> {
         const keys = this.keys();
         return keys.sort(() => Math.random() - Math.random()).slice(0, Math.abs(amount));
     };
@@ -198,7 +214,7 @@ export default class Database {
      * @returns {Array<string>}
      * @example Database.randomValue(3);
      */
-    randomValue(amount?: number): Array<string> {
+    public randomValue(amount?: number): Array<string> {
         const values = this.values();
         return values.sort(() => Math.random() - Math.random()).slice(0, Math.abs(amount));
     };

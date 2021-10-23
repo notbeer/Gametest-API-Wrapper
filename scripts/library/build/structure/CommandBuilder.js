@@ -1,4 +1,4 @@
-import { configuration } from "../configurations.js";
+import { configuration } from "../Configurations.js";
 export class CommandBuilder {
     constructor() {
         this.prefix = configuration.prefix;
@@ -7,11 +7,10 @@ export class CommandBuilder {
     /**
      * Register a command with a callback
      * @param {registerInformation} register An object of information needed to register the custom command
-     * @param {(data: BeforeChatEvent, args: Array<string>) => void}callback Code you want to execute when the command is executed
+     * @param {(data: BeforeChatEvent, args: Array<string>) => void} callback Code you want to execute when the command is executed
      * @example import { Server } from "../../Minecraft";
-     *  const server = new Server();
-     *  server.commands.register({ name: 'ping' }, (data, args) => {
-     *  server.broadcast('Pong!', data.sender.nameTag);
+     *  Server.commands.register({ name: 'ping' }, (data, args) => {
+     *  Server.broadcast('Pong!', data.sender.nameTag);
      * });
      */
     register(register, callback) {
@@ -30,9 +29,9 @@ export class CommandBuilder {
     /**
      * Get a list of registered commands
      * @returns {Array<string>}
-     * @example getAll();
+     * @example get();
      */
-    getAll() {
+    get() {
         const commands = [];
         this._registrationInformation.forEach(element => {
             if (element.private)
@@ -75,4 +74,4 @@ export class CommandBuilder {
     ;
 }
 ;
-export const Command = new CommandBuilder();
+export const CommandBuild = new CommandBuilder();

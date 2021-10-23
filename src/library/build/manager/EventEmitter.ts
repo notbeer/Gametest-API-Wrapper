@@ -1,4 +1,4 @@
-import { EventEmitterConstructor, EventEmitterTypes } from "../../@types/build/classes/eventEmitter";
+import { EventEmitterConstructor, EventEmitterTypes } from "../../@types/build/manager/eventEmitter";
 
 export const EventEmitter: EventEmitterConstructor = class Class implements EventEmitterTypes {
     private _listeners: any[] = [];
@@ -34,11 +34,11 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
         const index = this._listeners.findIndex(v => v.eventName === eventName && v.listener === listener);
         if(index !== -1) this._listeners.splice(index, 1);
     };
-    addListener(eventName: string, listener: (...args: any[]) => void): this {
+    public addListener(eventName: string, listener: (...args: any[]) => void): this {
         this._addListener(eventName, listener, false);
         return this;
     };
-    emit(eventName: string, ...args: any[]): boolean {
+    public emit(eventName: string, ...args: any[]): boolean {
         let status = false;
         this._listeners.forEach(object => {
             if(object.eventName === eventName) {
@@ -49,53 +49,53 @@ export const EventEmitter: EventEmitterConstructor = class Class implements Even
         });
         return status;
     };
-    eventNames(): Array<string> {
+    public eventNames(): Array<string> {
         return this._listeners.map(v => v.eventName);
     };
-    getMaxListeners(): number {
+    public getMaxListeners(): number {
         return this._configurations?.maxListeners;
     };
-    listenerCount(eventName: string): number {
+    public listenerCount(eventName: string): number {
         return eventName ? this._listeners.filter(v => v.eventName === eventName).length : this._listeners.length;
     };
-    listeners(eventName: string): Array<Function> {
+    public listeners(eventName: string): Array<Function> {
         const Functions: Array<Function> = [];
         this._listeners.forEach(object => {
             if(object.eventName === eventName && !object.once) Functions.push(object.listener);
         });
         return Functions;
     };
-    off(eventName: string, listener: (...args: any[]) => void): this {
+    public off(eventName: string, listener: (...args: any[]) => void): this {
         this._removeListener(eventName, listener);
         return this;
     };
-    on(eventName: string, listener: (...args: any[]) => void): this {
+    public on(eventName: string, listener: (...args: any[]) => void): this {
         this._addListener(eventName, listener, false);
         return this;
     };
-    once(eventName: string, listener: (...args: any[]) => void): this {
+    public once(eventName: string, listener: (...args: any[]) => void): this {
         this._addListener(eventName, listener, true);
         return this;
     };
-    prependListener(eventName: string, listener: (...args: any[]) => void): this {
+    public prependListener(eventName: string, listener: (...args: any[]) => void): this {
         this._addListener(eventName, listener, false, true);
         return this;
     };
-    prependOnceListener(eventName: string, listener: (...args: any[]) => void): this {
+    public prependOnceListener(eventName: string, listener: (...args: any[]) => void): this {
         this._addListener(eventName, listener, true, true);
         return this;
     };
-    removeAllListeners(eventName: string): void {
+    public removeAllListeners(eventName: string): void {
         eventName ? this._listeners = this._listeners.filter(element => element.eventName !== eventName) : this._listeners = [];
     };
-    removeListener(eventName: string, listener: (...args: any[]) => void): this {
+    public removeListener(eventName: string, listener: (...args: any[]) => void): this {
         this._removeListener(eventName, listener);
         return this;
     };
-    setMaxListeners(number: number): void {
+    public setMaxListeners(number: number): void {
         if(typeof number === 'number') this._configurations.maxListeners = number;
     };
-    rawListeners(eventName: string): Array<Function> {
+    public rawListeners(eventName: string): Array<Function> {
         const Functions: Array<Function> = [];
         this._listeners.forEach(object => {
             if(object.eventName === eventName) Functions.push(object.listener);

@@ -39,5 +39,5 @@ export type compactUnitAnyCase = compactUnit | Uppercase<compactUnit>;
 export interface durationInterface {
     short: compactUnitAnyCase
     long: UnitAnyCase
-    ms: number;
+    duration: number;
 }

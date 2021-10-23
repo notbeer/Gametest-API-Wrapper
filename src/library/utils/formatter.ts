@@ -1,5 +1,3 @@
-import { StringValue, compactUnitAnyCase, durationInterface } from '../@types/utils/formatter';
-
 /**
  * Turn text into colored text that supports MCBE
  * @param {string} text The text you want to format to rainbow colors.
@@ -22,9 +20,9 @@ function rainbowText(text: string): string {
  * This will display in text in thousands, millions and etc... For ex: "1400 -> "1.4k", "1000000" -> "1M", etc...
  * @param {number} number The number you want to convert
  * @returns {string}
- * @example compressNumber(15000);
+ * @example metricNumbers(15000);
  */
-function compressNumber(value: number): number | string {
+function metricNumbers(value: number): number | string {
     const types = ["", "k", "M", "G", "T", "P", "E", "Z", "Y"];
     const selectType = Math.log10(value) / 3 | 0;
     if(selectType == 0) return value;
@@ -33,73 +31,33 @@ function compressNumber(value: number): number | string {
 };
 /**
  * Will format your number. For ex: "1400" -> "1,400", "1000000" -> "1,000,000", etc...
- * @param {number} number 
+ * @param {number} number The number you want to convert
  * @returns {string}
- * @example formatNumber(15000);
+ * @example thousandsSeparator(15000);
  */
-function formatNumber(value: number): string {
+function thousandsSeparator(value: number): string {
     if(typeof value !== 'number') return;
     return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
-
-export function MS(value: StringValue): number;
-export function MS(value: number, { compactDuration, fullDuration }?: { compactDuration?: boolean, fullDuration?: boolean }): string;
-export function MS(value: number, { fullDuration, avoidDuration }?: { compactDuration?: boolean, fullDuration: boolean, avoidDuration: Array<compactUnitAnyCase> }): string;
-export function MS(value: StringValue | number, { compactDuration, fullDuration, avoidDuration }: { compactDuration?: boolean, fullDuration?: boolean, avoidDuration?: Array<compactUnitAnyCase> } = {}): string | number | undefined {
-    try {
-        if(typeof value === 'string') {
-            if(/^\d+$/.test(value)) return Number(value);
-            const durations = value.match(/-?\d*\.?\d+\s*?(years?|yrs?|weeks?|days?|hours?|hrs?|minutes?|mins?|seconds?|secs?|milliseconds?|msecs?|ms|[smhdwy])/gi);
-            return durations ? durations.reduce((a, b) => a + toMS(b), 0) : null;
-        };
-        if(typeof value === 'number') return toDuration(value, { compactDuration, fullDuration, avoidDuration });
-        throw new Error('Value is not a string or a number');
-    } catch(err) {  
-        const message = isError(err)
-        ? `${err.message}. Value = ${JSON.stringify(value)}`
-        : 'An unknown error has occured.';
-        throw new Error(message);
-    };
-};
-
 /**
- * Convert Durations to milliseconds
+ * Convert string to binary
+ * @param text 
+ * @returns {string}
  */
-function toMS(value: string): number | undefined {
-    const number = Number(value.replace(/[^-.0-9]+/g, ''));
-    value = value.replace(/\s+/g, '');
-    if(/\d+(?=ms|milliseconds?)/i.test(value)) return number;
-    else if(/\d+(?=s)/i.test(value)) return number * 1000;
-    else if(/\d+(?=m)/i.test(value)) return number * 60000;
-    else if(/\d+(?=h)/i.test(value)) return number * 3.6e+6;
-    else if(/\d+(?=d)/i.test(value)) return number * 8.64e+7;
-    else if(/\d+(?=w)/i.test(value)) return number * 6.048e+8;
-    else if(/\d+(?=y)/i.test(value)) return number * 3.154e+10;
+function textToBinary(text: string): string {
+    return text.split('').map((char) => {
+        return char.charCodeAt(0).toString(2);
+    }).join(' ');
 };
-
 /**
- * Convert milliseconds to durations
+ * Convert binary to string
+ * @param binary 
+ * @returns {string}
  */
-function toDuration(value: number, { compactDuration, fullDuration, avoidDuration }: { compactDuration?: boolean, fullDuration?: boolean, avoidDuration?: Array<compactUnitAnyCase> } = {}): string {
-    const absMs = Math.abs(value);
-    const duration: Array<durationInterface> = [
-        { short: 'd', long: 'day', ms: absMs / 8.64e+7 },
-        { short: 'h', long: 'hour', ms: absMs / 3.6e+6 % 24 },
-        { short: 'm', long: 'minute', ms: absMs / 60000 % 60 },
-        { short: 's', long: 'second', ms: absMs / 1000 % 60 },
-        { short: 'ms', long: 'millisecond', ms: absMs % 1000 },
-    ];
-    const mappedDuration = duration
-        .filter(obj => obj.ms !== 0 && avoidDuration ? fullDuration && !avoidDuration.map(v => v.toLowerCase()).includes(obj.short) : obj.ms)
-        .map(obj => `${Math.sign(value) === -1 ? '-' : ''}${compactDuration ? `${Math.floor(obj.ms)}${obj.short}` : `${Math.floor(obj.ms)} ${obj.long}${obj.ms === 1 ? '' : 's'}`}`);
-    return fullDuration ? mappedDuration.join(compactDuration ? ' ' : ', ') : mappedDuration[0];
+function binaryToText(binary: string): string {
+    return binary.split(' ').map((char) => {
+        return String.fromCharCode(parseInt(char, 2));
+    }).join('');
 };
 
-/**
- * A type guard for errors.
- */
-function isError(error: unknown): error is Error {
-    return typeof error === 'object' && error !== null && 'message' in error;
-};
-
-export { rainbowText, compressNumber, formatNumber };
+export { rainbowText, metricNumbers, thousandsSeparator, textToBinary, binaryToText };

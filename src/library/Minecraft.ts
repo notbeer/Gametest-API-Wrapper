@@ -1,22 +1,25 @@
 import { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout } from "./utils/scheduling.js";
 export { clearTickInterval, clearTickTimeout, setTickInterval, setTickTimeout };
 
-import { compressNumber, formatNumber, MS, rainbowText } from "./utils/formatter.js";
-export { compressNumber, formatNumber, MS, rainbowText };
+import { rainbowText, metricNumbers, thousandsSeparator } from "./utils/formatter.js";
+export { rainbowText, metricNumbers, thousandsSeparator };
+import { MS } from './utils/ms.js';
+export { MS };
 
-import Database from "./build/classes/databaseBuilder.js";
+import Database from "./build/manager/Database.js";
 export { Database };
 
-import { World } from 'mojang-minecraft';
-import { Entity } from "./build/classes/entityBuilder.js";
-import { Player } from "./build/classes/playerBuilder.js";
-import { Command } from "./build/classes/commandBuilder.js";
-import { ServerBuilder } from "./build/classes/serverBuilder.js";
-
+import { World } from "mojang-minecraft";
+import { ServerBuilder } from "./build/structure/serverBuilder.js";
+import { EntityBuild } from "./build/structure/EntityBuilder.js";
+import { PlayerBuild } from "./build/structure/PlayerBuilder.js";
+import { CommandBuild } from "./build/structure/CommandBuilder.js";
+import { MessageBuild } from "./build/structure/interfaces/Message.js";
 class ServerBuild extends ServerBuilder {
-    public entity = Entity;
-    public player = Player;
-    public command = Command;
+    public entity = EntityBuild;
+    public player = PlayerBuild;
+    public command = CommandBuild;
+    public message = MessageBuild;
     constructor() {
         super();
         this._buildEvent();
@@ -34,16 +37,16 @@ class ServerBuild extends ServerBuilder {
             /**
              * This is for the command builder and a emitter
              */
-            if(!data.message.startsWith(this.command.prefix)) return;
-            const args = data.message.slice(this.command.prefix.length).trim().split(/\s+/);
+            if(!data.message.startsWith(CommandBuild.prefix)) return;
+            const args = data.message.slice(CommandBuild.prefix.length).trim().split(/\s+/);
             const command = args.shift().toLowerCase();
-            const getCommand = Command.getAllRegistation().some(element => element.name === command || element.aliases && element.aliases.includes(command));
+            const getCommand = CommandBuild.getAllRegistation().some(element => element.name === command || element.aliases && element.aliases.includes(command));
             if(!getCommand) {
                 data.cancel = true;
                 return this.runCommand(`tellraw "${data.sender.nameTag}" {"rawtext":[{"text":"§c"},{"translate":"commands.generic.unknown", "with": ["§f${command}§c"]}]}`);
             };
-            Command.getAllRegistation().forEach(element => {
-                if(!data.message.startsWith(this.command.prefix) || element.name !== command) return;
+            CommandBuild.getAllRegistation().forEach(element => {
+                if(!data.message.startsWith(CommandBuild.prefix) || element.name !== command) return;
                 /**
                  * Registration callback
                  */
@@ -51,7 +54,7 @@ class ServerBuild extends ServerBuilder {
                 try {
                     element.callback(data, args);
                 } catch(error) {
-                    this.broadcast(`§c${error}`, data.sender.nameTag);
+                    this.runCommand(`tellraw "${data.sender.nameTag}" {"rawtext":[{"text":${JSON.stringify(`§c${error}`)}}]}`);
                 };
                 /**
                  * Emit to 'customCommand' event listener
@@ -71,7 +74,7 @@ class ServerBuild extends ServerBuilder {
         /**
          * Emit to 'beforePistonActivate' event listener
          */
-         World.events.beforePistonActivate.subscribe(data => this.emit('beforePistonActivate', data));
+        World.events.beforePistonActivate.subscribe(data => this.emit('beforePistonActivate', data));
         /**
          * Emit to 'blockExplode' event listener
          */
@@ -105,7 +108,7 @@ class ServerBuild extends ServerBuilder {
             this.emit('entityCreate', data.entity);
         
             if(data.entity.id !== 'minecraft:player') return;
-            let playerJoined = Player.list().filter(current => !oldPlayer.some(old => current === old));
+            let playerJoined = PlayerBuild.list().filter(current => !oldPlayer.some(old => current === old));
             /**
              * Emit to 'playerJoin' event listener
              */
@@ -119,7 +122,7 @@ class ServerBuild extends ServerBuilder {
              */
             this.emit('tick', data);
         
-            let currentPlayer = Player.list();
+            let currentPlayer = PlayerBuild.list();
             let playerLeft = oldPlayer.filter(old => !currentPlayer.some(current => old === current));
             /**
              * Emit to 'playerLeave' event listener
@@ -138,7 +141,4 @@ class ServerBuild extends ServerBuilder {
         });
     };
 };
-/**
- * Import this constructor
- */
 export const Server = new ServerBuild();

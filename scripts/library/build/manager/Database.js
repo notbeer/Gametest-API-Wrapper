@@ -1,11 +1,19 @@
-import { Server } from '../classes/serverBuilder.js';
+import { ServerBuild } from '../structure/serverBuilder.js';
+import { textToBinary, binaryToText } from '../../utils/formatter.js';
+/*
+type Mutable<T> = {
+    -readonly [k in keyof T]: T[k];
+};
+*/
 export default class Database {
     constructor(table) {
+        this.json = { GAMETEST_DB_TABLE: this.table };
         if (!table)
-            throw `[Database] constructor(): Error - Provide a table name`;
-        Server.runCommand('scoreboard objectives add GAMETEST_DB dummy');
+            console.warn(`[Database] constructor(): Error - Provide a table name`);
+        ServerBuild.runCommand('scoreboard objectives add GAMETEST_DB dummy');
         this.table = table;
         this._createTable();
+        // const mutableThis = this as Mutable<Database>;
     }
     ;
     /**
@@ -14,23 +22,32 @@ export default class Database {
     _createTable() {
         if (this._getTable())
             return;
-        let json = { GAMETEST_DB_TABLE: this.table };
-        return Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
+        ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(this.json))})" GAMETEST_DB 0`);
     }
     ;
     /**
      * @private
      */
     _getTable() {
-        const data = Server.runCommand(`scoreboard players list`);
+        const data = ServerBuild.runCommand(`scoreboard players list`);
         if (data.error)
             return;
-        const objectiveUsers = data.statusMessage.match(/(?<=\n).*/)[0];
-        const player = objectiveUsers.replace(/\\"/g, '"').match(new RegExp(`({"GAMETEST_DB_TABLE":"${this.table}".*?}+(?=,\\s)|{"GAMETEST_DB_TABLE":"${this.table}".*?}+$)`));
-        if (player)
-            return JSON.parse(player[0]);
-        else
-            throw `[Database]: Error - Table "${this.table}" doesn't exist, please restart the world to possibly fix this issue`;
+        const dataRegex = /(?<=^\$binary\()[0-1\s]+(?=\)$)/;
+        const objectiveUsers = data.statusMessage.match(/(?<=\n).*/)[0].split(', ');
+        for (const dummy of objectiveUsers) {
+            if (dataRegex.test(dummy)) {
+                try {
+                    return JSON.parse(binaryToText(dummy.match(dataRegex)[0]));
+                }
+                catch (err) {
+                    ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(this.json))})" GAMETEST_DB 0`);
+                    return this.json;
+                }
+                ;
+            }
+            ;
+        }
+        ;
     }
     ;
     /**
@@ -41,11 +58,9 @@ export default class Database {
      */
     set(key, value) {
         let json = this._getTable();
-        if (typeof value === 'string')
-            value = value.replace(/"/g, "'");
-        Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
+        ServerBuild.runCommand(`scoreboard players reset "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB`);
         Object.assign(json, { [key]: value });
-        Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
+        ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB 0`);
     }
     ;
     /**
@@ -77,9 +92,9 @@ export default class Database {
      */
     delete(key) {
         let json = this._getTable();
-        Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
+        ServerBuild.runCommand(`scoreboard players reset "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB`);
         const status = delete json[key];
-        Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
+        ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB 0`);
         return status;
     }
     ;
@@ -89,9 +104,9 @@ export default class Database {
      */
     clear() {
         let json = this._getTable();
-        Server.runCommand(`scoreboard players reset ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB`);
+        ServerBuild.runCommand(`scoreboard players reset "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB`);
         json = { GAMETEST_DB_TABLE: this.table };
-        Server.runCommand(`scoreboard players add ${JSON.stringify(JSON.stringify(json))} GAMETEST_DB 0`);
+        ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB 0`);
     }
     ;
     /**
