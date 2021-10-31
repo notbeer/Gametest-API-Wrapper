@@ -1,4 +1,4 @@
-import { configuration } from "../Configurations.js";
+import { configuration } from "../configurations.js";
 export class CommandBuilder {
     constructor() {
         this.prefix = configuration.prefix;
