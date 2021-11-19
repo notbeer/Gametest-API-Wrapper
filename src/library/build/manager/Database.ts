@@ -11,36 +11,29 @@ export default class Database {
     public readonly table: string;
     public readonly json: object;
     constructor(table: string) {
-        this.json = { GAMETEST_DB_TABLE: this.table };
-        if(!table) console.warn(`[Database] constructor(): Error - Provide a table name`);
-        ServerBuild.runCommand('scoreboard objectives add GAMETEST_DB dummy');
-        this.table = table;
-        this._createTable();
+        if(!table) throw Error('[Database] constructor(): Error - Provide a table name');
+        this.json = { GAMETEST_DB_TABLE: table }, this.table = table;
+        let json = this._getTable() ?? this.json;
+        ServerBuild.runCommands([
+            'scoreboard objectives add GAMETEST_DB dummy',
+            `scoreboard players reset "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB`,
+            `scoreboard players add "$binary(${textToBinary(JSON.stringify(json))})" GAMETEST_DB 0`
+        ]);
         // const mutableThis = this as Mutable<Database>;
     };
     /**
      * @private
      */
-    private _createTable() {
-        if(this._getTable()) return;
-        ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(this.json))})" GAMETEST_DB 0`);
-    };
-    /**
-     * @private
-     */
-    _getTable() {
+    private _getTable() {
         const data = ServerBuild.runCommand(`scoreboard players list`);
         if(data.error) return;
-        const dataRegex = /(?<=^\$binary\()[0-1\s]+(?=\)$)/;
-        const objectiveUsers = data.statusMessage.match(/(?<=\n).*/)[0].split(', ');
+        const objectiveUsers = data.statusMessage.match(/(?<=\n).*/)[0].split(', '), dataRegex = /(?<=^\$binary\()[0-1\s]+(?=\)$)/;
         for(const dummy of objectiveUsers) {
             if(dataRegex.test(dummy)) {
                 try {
-                    return JSON.parse(binaryToText(dummy.match(dataRegex)[0]));
-                } catch(err) {
-                    ServerBuild.runCommand(`scoreboard players add "$binary(${textToBinary(JSON.stringify(this.json))})" GAMETEST_DB 0`);
-                    return this.json;
-                };
+                    const json = JSON.parse(binaryToText(dummy.match(dataRegex)[0]));
+                    if(json?.GAMETEST_DB_TABLE === this.table) return json;
+                } catch(err) {};
             };
         };
     };
@@ -64,6 +57,7 @@ export default class Database {
      */
     public get(key: string): any {
         let json = this._getTable();
+        delete json["GAMETEST_DB_TABLE"];
         return json[key];
     };
     /**
@@ -228,4 +222,3 @@ export default class Database {
     };
     */
 };
-
