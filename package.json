@@ -1,3 +1,19 @@
 {
-    "name": "gametest-api-wrapper"
+  "name": "gametest-api-wrapper",
+  "version": "0.0.1",
+  "description": "<!--\r This README.md template was NOT orginally created by me(notbeer)! This is a fork of:\r https://github.com/othneildrew/Best-README-Template\r -->",
+  "main": "src/library/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/notbeer/Gametest-API-Wrapper.git"
+  },
+  "author": "notbeer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/notbeer/Gametest-API-Wrapper/issues"
+  },
+  "homepage": "https://github.com/notbeer/Gametest-API-Wrapper#readme"
 }
