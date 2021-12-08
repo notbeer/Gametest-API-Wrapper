@@ -1,5 +1,5 @@
 {
     "exports": {
-        "src/library": "BP/scripts/.modules/gametest-api-wrapper"
+        "src/library": "BP/scripts/modules/gametest-api-wrapper"
     }
 }
