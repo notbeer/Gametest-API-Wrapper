@@ -1,4 +1,4 @@
-import { Commands, World } from 'mojang-minecraft';
+import { world } from 'mojang-minecraft';
 import { EventEmitter } from '../manager/EventEmitter.js';
 export class ServerBuilder extends EventEmitter {
     /**
@@ -23,7 +23,7 @@ export class ServerBuilder extends EventEmitter {
      */
     runCommand(command, dimension) {
         try {
-            return { error: false, ...Commands.run(command, World.getDimension(dimension ?? 'overworld')) };
+            return { error: false, ...world.getDimension(dimension ?? 'overworld').runCommand(command) };
         }
         catch (error) {
             return { error: true };
