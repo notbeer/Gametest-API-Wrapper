@@ -1,4 +1,4 @@
-import { Commands, World } from 'mojang-minecraft';
+import { world } from 'mojang-minecraft';
 import { EventEmitter } from '../manager/EventEmitter.js';
 import { dimension } from '../../@types/index';
 import { runCommandReturn } from '../../@types/build/structure/ServerBuilder';
@@ -24,7 +24,7 @@ export class ServerBuilder extends EventEmitter {
      */
     public runCommand(command: string, dimension?: dimension): runCommandReturn {
         try {
-            return { error: false, ...Commands.run(command, World.getDimension(dimension ?? 'overworld')) };
+            return { error: false, ...world.getDimension(dimension ?? 'overworld').runCommand(command) };
         } catch(error) {
             return { error: true };
         };
