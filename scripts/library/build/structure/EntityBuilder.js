@@ -1,4 +1,4 @@
-import { World, BlockLocation } from 'mojang-minecraft';
+import { world, BlockLocation } from 'mojang-minecraft';
 import { ServerBuild } from './serverBuilder.js';
 export class EntityBuilder {
     /**
@@ -30,7 +30,7 @@ export class EntityBuilder {
      */
     getAtPos([x, y, z], { dimension, ignoreType } = {}) {
         try {
-            const entity = World.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation(new BlockLocation(x, y, z));
+            const entity = world.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation(new BlockLocation(x, y, z));
             for (let i = 0; i < entity.length; i++)
                 if (ignoreType.includes(entity[i].id))
                     entity.splice(i, 1);
