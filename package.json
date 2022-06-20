@@ -1,0 +1,33 @@
+{
+  "name": "gametest-api-wrapper",
+  "version": "1.0.0",
+  "description": "<!--\r This README.md template was NOT orginally created by me(notbeer)! This is a fork of:\r https://github.com/othneildrew/Best-README-Template\r -->",
+  "main": "scripts/library/Minecraft.js",
+  "beapiModule": true,
+  "module": "./scripts/library/Minecraft.js",
+  "typings": "./scripts/library/Minecraft.d.ts",
+  "exports": {
+    "import": "./scripts/library/Minecraft.js",
+    "require": "./scripts/library/Minecraft.js"
+  },
+  "files": [
+    "scripts"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/notbeer/Gametest-API-Wrapper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/notbeer/Gametest-API-Wrapper/issues"
+  },
+  "homepage": "https://github.com/notbeer/Gametest-API-Wrapper#readme",
+  "dependencies": {
+    "@types/mojang-minecraft": "^0.1.4",
+    "typescript": "^4.6.2"
+  }
+}

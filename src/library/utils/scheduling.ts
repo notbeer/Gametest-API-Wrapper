@@ -1,4 +1,4 @@
-import { World } from 'mojang-minecraft';
+import { world } from 'mojang-minecraft';
 
 interface schedule {
     callback: Function,
@@ -54,7 +54,7 @@ function clearTickInterval(handle: number): void {
     tickIntervalMap.delete(handle);
 };
 
-World.events.tick.subscribe((data) => {
+world.events.tick.subscribe((data) => {
     for(const [ID, tickTimeout] of tickTimeoutMap) {
         tickTimeout.tick--;
         if(tickTimeout.tick <= 0) {

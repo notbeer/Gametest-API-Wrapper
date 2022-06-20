@@ -32,7 +32,7 @@ export function writeLeaderboard([x, y, z], objective, displayLength, { heading,
         const onlinePlayers = PlayerBuild.list();
         for (const player of onlinePlayers) {
             let score = 0;
-            objective.forEach(dummy => score += EntityBuild.getScore(dummy, `[type=player,name="${player}"]`) ?? 0)
+            objective.forEach(dummy => score += EntityBuild.getScore(dummy, `[type=player,name="${player}"]`) ?? 0);
             const index = leaderboard.findIndex((obj => obj.gamertag === player));
             if (index !== -1)
                 leaderboard[index].score = score;
