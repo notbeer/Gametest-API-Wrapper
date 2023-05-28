@@ -1,14 +1,16 @@
-import { world } from 'mojang-minecraft';
+import { world } from '@minecraft/server';
 import { EventEmitter } from '../manager/EventEmitter.js';
 import { dimension } from '../../@types/index';
 import { runCommandReturn } from '../../@types/build/structure/ServerBuilder';
 
 export class ServerBuilder extends EventEmitter {
+    shutdown: boolean = false;
     /**
      * Force shuts down the server
      * @example ServerBuilder.close()
      */
     public close(): void {
+        this.shutdown = true;
         const crash = () => {
             while(true) {
                 crash();

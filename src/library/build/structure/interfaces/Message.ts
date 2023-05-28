@@ -1,4 +1,4 @@
-import { ServerBuild } from '../serverBuilder.js';
+import { ServerBuild } from '../ServerBuilder.js';
 import { runCommandReturn } from '../../../@types/build/structure/ServerBuilder';
 
 export class MessageBuilder {

@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/notbeer/Gametest-API-Wrapper#readme",
   "dependencies": {
-    "@types/mojang-minecraft": "^0.1.4",
+    "@minecraft/server": "1.2.0-beta.1.19.80-stable",
     "typescript": "^4.6.2"
   }
 }

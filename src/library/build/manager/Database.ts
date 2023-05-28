@@ -1,4 +1,4 @@
-import { ServerBuild } from '../structure/serverBuilder.js';
+import { ServerBuild } from '../structure/ServerBuilder.js';
 import { textToBinary, binaryToText } from '../../utils/formatter.js';
 
 /*
@@ -26,7 +26,7 @@ export default class Database {
      */
     private _getTable() {
         const data = ServerBuild.runCommand(`scoreboard players list`);
-        if(data.error) return;
+        if (!data.statusMessage || data.error) return;
         const objectiveUsers = data.statusMessage.match(/(?<=\n).*/)[0].split(', '), dataRegex = /(?<=^\$binary\()[0-1\s]+(?=\)$)/;
         for(const dummy of objectiveUsers) {
             if(dataRegex.test(dummy)) {

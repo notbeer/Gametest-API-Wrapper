@@ -9,12 +9,20 @@ export { MS };
 import Database from "./build/manager/Database.js";
 export { Database };
 
-import { world } from "mojang-minecraft";
-import { ServerBuilder } from "./build/structure/serverBuilder.js";
+import { world, system, WatchdogTerminateReason } from "@minecraft/server";
+import { ServerBuilder } from "./build/structure/ServerBuilder.js";
 import { EntityBuild } from "./build/structure/EntityBuilder.js";
 import { PlayerBuild } from "./build/structure/PlayerBuilder.js";
 import { CommandBuild } from "./build/structure/CommandBuilder.js";
 import { MessageBuild } from "./build/structure/interfaces/Message.js";
+
+let sv: ServerBuild;
+
+// prevent watchdog from crashing
+system.events.beforeWatchdogTerminate.subscribe((ev) => {
+  if (WatchdogTerminateReason.hang == ev.terminateReason && !sv.shutdown) ev.cancel = true;
+})
+
 class ServerBuild extends ServerBuilder {
     public entity = EntityBuild;
     public player = PlayerBuild;
@@ -101,7 +109,7 @@ class ServerBuild extends ServerBuilder {
         world.events.weatherChange.subscribe(data => this.emit('weatherChange', data));
         
         let oldPlayer: Array<string> = [];
-        world.events.entityCreate.subscribe(data => {
+        world.events.entitySpawn.subscribe(data => {
             /**
              * Emit to 'entityCreate' event listener
              */
@@ -115,12 +123,14 @@ class ServerBuild extends ServerBuilder {
             if(playerJoined.includes(data.entity.nameTag)) this.emit('playerJoin', data.entity);
         });
 
-        let worldLoaded = false, tickCount = 0;
-        world.events.tick.subscribe((data) => {
+        let worldLoaded = false, tickCount = 0, lastTick = Date.now();
+        system.run(() => {
             /**
              * Emit to 'tick' event listener
              */
-            this.emit('tick', data);
+            let currTick = Date.now();
+            this.emit('tick', { currentTick: system.currentTick, deltaTime: currTick - lastTick });
+            lastTick = currTick;
         
             let currentPlayer = PlayerBuild.list();
             let playerLeft = oldPlayer.filter(old => !currentPlayer.some(current => old === current));
@@ -141,4 +151,4 @@ class ServerBuild extends ServerBuilder {
         });
     };
 };
-export const Server = new ServerBuild();
+export const Server = sv = new ServerBuild();

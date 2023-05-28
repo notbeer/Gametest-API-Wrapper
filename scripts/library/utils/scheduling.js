@@ -1,4 +1,4 @@
-import { world } from 'mojang-minecraft';
+import { system } from '@minecraft/server';
 const tickTimeoutMap = new Map();
 const tickIntervalMap = new Map();
 let tickTimeoutID = 0, tickIntervalID = 0;
@@ -50,7 +50,9 @@ function clearTickInterval(handle) {
     tickIntervalMap.delete(handle);
 }
 ;
-world.events.tick.subscribe((data) => {
+let currentTick = 0;
+system.runInterval(() => {
+    currentTick++;
     for (const [ID, tickTimeout] of tickTimeoutMap) {
         tickTimeout.tick--;
         if (tickTimeout.tick <= 0) {
@@ -61,7 +63,7 @@ world.events.tick.subscribe((data) => {
     }
     ;
     for (const [, tickInterval] of tickIntervalMap) {
-        if (data.currentTick % tickInterval.tick === 0)
+        if (currentTick % tickInterval.tick === 0)
             tickInterval.callback(...tickInterval.args);
     }
     ;

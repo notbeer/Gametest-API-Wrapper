@@ -1,4 +1,4 @@
-import { ServerBuild } from "../build/structure/serverBuilder.js";
+import { ServerBuild } from "../build/structure/ServerBuilder.js";
 import { MessageBuild } from "../build/structure/interfaces/Message.js";
 export function displayRank(chatmsg) {
     const data = ServerBuild.runCommand(`tag "${chatmsg.sender.nameTag}" list`);

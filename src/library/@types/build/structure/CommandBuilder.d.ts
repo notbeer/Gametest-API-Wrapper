@@ -1,4 +1,4 @@
-import { BeforeChatEvent } from "mojang-minecraft";
+import { BeforeChatEvent } from "@minecraft/server";
 
 export interface registerInformation {
     private?: boolean,

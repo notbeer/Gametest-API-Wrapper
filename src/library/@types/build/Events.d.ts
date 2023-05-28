@@ -4,14 +4,19 @@ import {
     BeforePistonActivateEvent, 
     BlockExplodeEvent,
     ChatEvent,
-    TickEvent,
+    //TickEvent,
     EffectAddEvent,
     Entity,
     ExplosionEvent,
     PistonActivateEvent,
     WeatherChangeEvent 
-} from "mojang-minecraft";
+} from "@minecraft/server";
 import { registerInformation } from './structure/CommandBuilder';
+
+export interface TickEvent {
+  currentTick: number,
+  deltaTime: number
+}
 
 export interface EventList {
     beforeMessage: [BeforeChatEvent],

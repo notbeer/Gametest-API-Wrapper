@@ -1,5 +1,5 @@
-import { world, BlockLocation } from 'mojang-minecraft';
-import { ServerBuild } from './serverBuilder.js';
+import { world } from '@minecraft/server';
+import { ServerBuild } from './ServerBuilder.js';
 export class PlayerBuilder {
     /**
      * Get list of players in game
@@ -8,7 +8,7 @@ export class PlayerBuilder {
      */
     list() {
         let data = [];
-        data = ServerBuild.runCommand(`list`).players.split(', ');
+        data = ServerBuild.runCommand(`list`).players?.split(', ') || [];
         return data;
     }
     ;
@@ -77,7 +77,7 @@ export class PlayerBuilder {
      */
     getAtPos([x, y, z], { dimension } = {}) {
         try {
-            const entity = world.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation(new BlockLocation(x, y, z));
+            const entity = world.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation({ x, y, z });
             for (let i = 0; i < entity.length; i++)
                 if (entity[i].id !== 'minecraft:player')
                     entity.splice(i, 1);

@@ -1,4 +1,4 @@
-import { ServerBuild } from '../serverBuilder.js';
+import { ServerBuild } from '../ServerBuilder.js';
 export class MessageBuilder {
     /**
      * Broadcast a message in chat

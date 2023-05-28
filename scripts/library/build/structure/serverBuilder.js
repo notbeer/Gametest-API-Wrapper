@@ -1,11 +1,16 @@
-import { world } from 'mojang-minecraft';
+import { world } from '@minecraft/server';
 import { EventEmitter } from '../manager/EventEmitter.js';
 export class ServerBuilder extends EventEmitter {
+    constructor() {
+        super(...arguments);
+        this.shutdown = false;
+    }
     /**
      * Force shuts down the server
      * @example ServerBuilder.close()
      */
     close() {
+        this.shutdown = true;
         const crash = () => {
             while (true) {
                 crash();

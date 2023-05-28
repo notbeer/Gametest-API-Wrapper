@@ -1,4 +1,4 @@
-import { ServerBuild } from '../structure/serverBuilder.js';
+import { ServerBuild } from '../structure/ServerBuilder.js';
 import { textToBinary, binaryToText } from '../../utils/formatter.js';
 /*
 type Mutable<T> = {
@@ -24,7 +24,7 @@ export default class Database {
      */
     _getTable() {
         const data = ServerBuild.runCommand(`scoreboard players list`);
-        if (data.error)
+        if (!data.statusMessage || data.error)
             return;
         const objectiveUsers = data.statusMessage.match(/(?<=\n).*/)[0].split(', '), dataRegex = /(?<=^\$binary\()[0-1\s]+(?=\)$)/;
         for (const dummy of objectiveUsers) {

@@ -1,5 +1,5 @@
-import { BeforeChatEvent } from "mojang-minecraft";
-import { ServerBuild } from "../build/structure/serverBuilder.js";
+import { BeforeChatEvent } from "@minecraft/server";
+import { ServerBuild } from "../build/structure/ServerBuilder.js";
 import { MessageBuild } from "../build/structure/interfaces/Message.js";
 
 export function displayRank(chatmsg: BeforeChatEvent) {

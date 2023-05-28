@@ -1,5 +1,5 @@
-import { world, BlockLocation } from 'mojang-minecraft';
-import { ServerBuild } from './serverBuilder.js';
+import { world } from '@minecraft/server';
+import { ServerBuild } from './ServerBuilder.js';
 import { dimension } from '../../@types/index';
 import { getEntityAtPosReturn } from '../../@types/build/structure/EntityBuilder';
 
@@ -29,7 +29,7 @@ export class EntityBuilder {
      */
     public getAtPos([x, y, z]: [number, number, number], { dimension, ignoreType }: { dimension?: dimension, ignoreType?: Array<string> } = {}): getEntityAtPosReturn {
         try {
-            const entity = world.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation(new BlockLocation(x, y, z));
+            const entity = world.getDimension(dimension ? dimension : 'overworld').getEntitiesAtBlockLocation({ x,y,z });
             for(let i = 0; i < entity.length; i++)
                 if(ignoreType.includes(entity[i].id)) entity.splice(i, 1);
             return { list: entity, error: false };

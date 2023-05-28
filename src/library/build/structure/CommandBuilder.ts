@@ -1,4 +1,4 @@
-import { BeforeChatEvent } from "mojang-minecraft";
+import { BeforeChatEvent } from "@minecraft/server";
 import { configuration } from "../configurations.js";
 import { storedRegisterInformation, registerInformation } from "../../@types/build/structure/CommandBuilder";
 
